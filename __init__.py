@@ -3,6 +3,7 @@ import requests
 import config
 import hashlib
 import platform
+import function
 
 def auth():
     seabook_password = request.cookies.get('seabook_password')
@@ -29,7 +30,6 @@ def server(name):
     if name == None:
         return "</h1>海书面板提醒您：这里是用于控制服务器的重要区域，请不要主动访问。</h1>"
     if name == "reboot":
-        import function
         function.reboot()
 
 @app.route('/login/',methods=['POST'])
