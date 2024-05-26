@@ -3,16 +3,16 @@
 <head>
     <meta charset="utf-8">
     <title>主页丨海书面板</title>
+    <link rel="stylesheet" href={{url_for('static', filename='style/main.css')}}>
     <link rel="stylesheet" href={{url_for('static', filename='style/home.css')}}>
     <link rel="stylesheet" href={{url_for('static', filename='style/head.css')}}>
     <link rel="stylesheet" href={{url_for('static', filename='style/aside.css')}}>
+    <link rel="stylesheet" href={{url_for('static', filename='style/card.css')}}>
 </head>
 <body>
     <aside class="sidebar">
         <img src={{url_for('static', filename='image/logo.png')}} alt="LOGO"></img>
-        <ul>
-            <li><a href="#">主页</a></li>
-        </ul>
+        <div class="card"><a href="#">主页</a></div>
     </aside>
     <nav>
         <a href="#">概述</a>
@@ -21,7 +21,11 @@
             <a href="/server/shutdown">关机</a>
         </div>
     </nav>
-    <h1>{{poetry}}</h1>
-    
+    <div class="card">
+        <h2>信息</h2>
+        系统名称：{{platform}}<br>
+        主机名称：{{hostname}}<br>
+        IP地址：{{ip}}
+    </div>
 </body>
 </html>

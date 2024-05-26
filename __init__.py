@@ -2,6 +2,7 @@ from flask import Flask, redirect,render_template,request,make_response
 import requests
 import config
 import hashlib
+import platform
 
 def auth():
     seabook_password = request.cookies.get('seabook_password')
@@ -15,7 +16,7 @@ def home():
     if auth() == False:
         return render_template('login.html')
     poetry = requests.get('https://xinghaiapi.pythonanywhere.com/poetry-moment/get/text')
-    return render_template('index.html',poetry=str(poetry.content,'utf-8'))
+    return render_template('index.html',poetry=str(poetry.content,'utf-8'),platform=str(platform.platform()),hostname=str(platform.node()),ip=str())
 
 @app.route('/server/')
 def server_waring():
@@ -28,8 +29,8 @@ def server(name):
     if name == None:
         return "</h1>海书面板提醒您：这里是用于控制服务器的重要区域，请不要主动访问。</h1>"
     if name == "reboot":
-        import reboot
-        reboot.reboot()
+        import function
+        function.reboot()
 
 @app.route('/login/',methods=['POST'])
 def login():
