@@ -5,14 +5,20 @@
     <title>主页</title>
     <link rel="stylesheet" href={{url_for('static', filename='style/home.css')}}>
     <link rel="stylesheet" href={{url_for('static', filename='style/head.css')}}>
+    <link rel="stylesheet" href={{url_for('static', filename='style/aside.css')}}>
 </head>
 <body>
+    <aside class="sidebar">
+        <img src={{url_for('static', filename='image/logo.png')}} alt="LOGO"></img>
+        <ul>
+            <li><a href="#">主页</a></li>
+        </ul>
+    </aside>
     <nav>
-        <img src={{url_for('static', filename='image/logo.png')}} alt="LOGO" height="40"></img>
         <a href="#">概述</a>
         <div class="close">
-            <a href="#">重启</a>
-            <a href="#">关机</a>
+            <a href="/server/reboot">重启</a>
+            <a href="/server/shutdown">关机</a>
         </div>
     </nav>
     <h1>欢迎使用海书面板！</h1>

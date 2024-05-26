@@ -1,0 +1,19 @@
+aside {
+    
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px; /* 宽度 */
+    height: 100vh; /* 高度 */
+    background-color: #f5f5f5; /* 背景色 */
+    transition: all 0.3s ease; /* 过渡效果 */
+    overflow-y: auto; /* 防止内容溢出 */
+    z-index: 999; /* 确保侧边栏位于顶部 */
+}
+  /* logo 图片 */
+aside img {
+    width: auto;
+    margin-right: 10px;
+    border-radius: 4px; /* 圆角 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 外阴影 */
+}
