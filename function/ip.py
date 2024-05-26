@@ -1,4 +1,4 @@
-import socket,requests
+import socket
 from urllib.request import urlopen
 from json import load
 
@@ -11,6 +11,6 @@ def local_ip():
 def external_ip():
     try:
         my_ip = load(urlopen('http://httpbin.org/ip'))['origin']
-        print('httpbin.org', my_ip)
+        return my_ip
     except:
         return None

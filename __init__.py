@@ -17,7 +17,11 @@ def home():
     if auth() == False:
         return render_template('login.html')
     poetry = requests.get('https://xinghaiapi.pythonanywhere.com/poetry-moment/get/text')
-    return render_template('index.html',poetry=str(poetry.content,'utf-8'),platform=str(platform.platform()),hostname=str(platform.node()),ip=str())
+    poetry = str(poetry.content,'utf-8')
+    display_platform = str(platform.platform())
+    hostname = str(platform.node())
+    display_ip = str(function.external_ip())+" / "+str(function.local_ip())
+    return render_template('index.html',poetry=poetry,platform=display_platform,hostname=hostname,ip=display_ip)
 
 @app.route('/server/')
 def server_waring():
