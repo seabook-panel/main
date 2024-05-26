@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>登录丨海书面板</title>
+    <link rel="stylesheet" href={{url_for('static', filename='style/login.css')}}>
+</head>
+<body>
+    <div class="card">
+        <h1>海书面板</h1>
+        <form action="/login" method="post">
+            用户名：<input type="username" name="username"/><br>
+            密码：<input type="password" name="password"/><br>
+            <input type="submit" value="登录">
+        </form>
+    
+    </div>
+</body>
+</html>

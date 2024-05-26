@@ -2,7 +2,7 @@
 <html lang="zh-cn">
 <head>
     <meta charset="utf-8">
-    <title>主页</title>
+    <title>主页丨海书面板</title>
     <link rel="stylesheet" href={{url_for('static', filename='style/home.css')}}>
     <link rel="stylesheet" href={{url_for('static', filename='style/head.css')}}>
     <link rel="stylesheet" href={{url_for('static', filename='style/aside.css')}}>
@@ -21,6 +21,7 @@
             <a href="/server/shutdown">关机</a>
         </div>
     </nav>
-    <h1>欢迎使用海书面板！</h1>
+    <h1>{{poetry}}</h1>
+    
 </body>
 </html>

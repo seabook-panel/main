@@ -1,0 +1,3 @@
+[admin]
+password = "password"
+password_hash = "False"
