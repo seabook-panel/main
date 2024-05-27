@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>主页丨海书面板</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="icon" type="image/png" href={{url_for('static', filename='image/logo.png')}}>
     <link rel="stylesheet" href={{url_for('static', filename='style/main.css')}}>
     <link rel="stylesheet" href={{url_for('static', filename='style/home.css')}}>
@@ -31,15 +32,60 @@
     </div>
     <div class="card">
         <h2>状态</h2>
-        <h3>CPU信息</h3>
-        核心数：{{cpu_count_main}}<br>
-        线程数：{{cpu_count_logical}}<br>
-        最大频率：{{cpu_freq}}<br>
-        使用率：{{cpu_percent}}
-        <h3>内存信息</h3>
-        总内存：{{memory_totol}}<br>
-        已用内存：{{memory_used}}<br>
-        空余内存：{{memory_free}}
+        <h3>CPU/内存占用</h3>
+        <div class="server-status" style="position: relative; height:200px; width: 200px; display:inline-block;">
+            <canvas id="cpuChart"></canvas>
+            <center>CPU占用</center>
+        </div>
+        <div class="server-status"  style="position: relative; height:200px; width: 200px; display:inline-block;">
+            <canvas id="memoryChart"></canvas>
+            <center>内存占用</center>
+        </div>
     </div>
 </body>
 </html>
+<script>
+    // 示例数据，替换为实际的CPU和内存使用率
+    const cpuPercent = "{{cpu_percent}}"; // CPU使用率
+    const memoryUsed = "{{memory_used}}"; // 内存使用率（以百分比表示）
+
+    // 创建CPU使用率饼状图
+    var ctxCPU = document.getElementById('cpuChart').getContext('2d');
+    var cpuChart = new Chart(ctxCPU, {
+        type: 'doughnut',
+        data: {
+            labels: ['已使用', '空闲'],
+            datasets: [{
+                label: 'CPU 使用',
+                data: [cpuPercent, 100 - cpuPercent],
+                backgroundColor: ['#FF6384', '#36A2EB']
+            }]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                position: 'bottom'
+            }
+        }
+    });
+
+    // 创建内存使用率饼状图
+    var ctxMemory = document.getElementById('memoryChart').getContext('2d');
+    var memoryChart = new Chart(ctxMemory, {
+        type: 'doughnut',
+        data: {
+            labels: ['已使用', '空闲'],
+            datasets: [{
+                label: '内存 使用',
+                data: [memoryUsed, 100 - memoryUsed],
+                backgroundColor: ['#FF6384', '#36A2EB']
+            }]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                position: 'bottom'
+            }
+        }
+    });
+</script>
