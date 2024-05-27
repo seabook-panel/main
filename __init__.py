@@ -20,8 +20,16 @@ def home():
     poetry = str(poetry.content,'utf-8')
     display_platform = str(platform.platform())
     hostname = str(platform.node())
-    display_ip = str(function.external_ip())+" / "+str(function.local_ip())
-    return render_template('index.html',poetry=poetry,platform=display_platform,hostname=hostname,ip=display_ip)
+    local_ip = str(function.local_ip())
+    external_ip = str(function.external_ip())
+    memory_totol = str(function.memory_totol())
+    memory_used = str(function.memory_used())
+    memory_free = str(function.memory_free())
+    cpu_count_main = str(function.cpu_count_main())
+    cpu_count_logical = str(function.cpu_count_logical())
+    cpu_freq = str(function.cpu_freq()) + "GHz"
+    cpu_percent = str(function.cpu_percent()) + "%"
+    return render_template('index.html',poetry=poetry,platform=display_platform,hostname=hostname,local_ip=local_ip,external_ip=external_ip,memory_totol=memory_totol,memory_used=memory_used,memory_free=memory_free,cpu_count_main=cpu_count_main,cpu_count_logical=cpu_count_logical,cpu_freq=cpu_freq,cpu_percent=cpu_percent)
 
 @app.route('/server/')
 def server_waring():
