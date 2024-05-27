@@ -8,12 +8,12 @@
     margin-top: 10px;
 }
 
-.card h2 {
+.card h2,h3 {
     position: relative; /* 使h2成为定位上下文 */
     margin-left: 20px; /* 为竖条预留空间 */
 }
 
-.card h2:before {
+.card h2:before,h3:before{
     content: ""; /* 创建伪元素 */
     position: absolute; /* 使其相对于h2定位 */
     top: 50%; /* 使竖条居中 */
@@ -23,3 +23,4 @@
     width: 2px; /* 调整竖条宽度 */
     background-color: #7B68EE; /* 设置颜色 */
 }
+

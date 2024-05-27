@@ -51,4 +51,5 @@ def login():
     password_hash = hashlib.sha512(password.encode()).hexdigest()
     resp.set_cookie("seabook_password", password_hash)
     return resp
+
 app.run(debug=True,host='0.0.0.0')

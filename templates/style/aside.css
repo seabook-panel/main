@@ -8,7 +8,6 @@ aside {
     overflow-y: auto; /* 防止内容溢出 */
     z-index: 999; /* 确保侧边栏位于顶部 */
     border: 20px solid #E5EFFD;
-    border-radius: 5px;
 }
   /* logo 图片 */
 aside img {

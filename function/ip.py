@@ -3,9 +3,9 @@ from urllib.request import urlopen
 from json import load
 
 def local_ip():
-    myname = socket.getfqdn(socket.gethostname())
-    myaddr = socket.gethostbyname(myname)
-    return myaddr
+    hostname = socket.getfqdn(socket.gethostname())
+    addr = socket.gethostbyname(hostname)
+    return addr
 
 
 def external_ip():
@@ -13,4 +13,5 @@ def external_ip():
         my_ip = load(urlopen('http://httpbin.org/ip'))['origin']
         return my_ip
     except:
-        return None
+        return "获取公网IP失败！"
+        # 防止由于测试给API带来太大压力，这里返回错误即可。
