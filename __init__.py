@@ -45,12 +45,14 @@ def login():
     password = request.form.get("password", type=str, default=None)
     password_hash = hashlib.sha512(password.encode()).hexdigest()
     resp.set_cookie("seabook_password", password_hash)
+    print("IP地址为"+request.remote_addr+"的管理员登录了海书面板。")
     return resp
 
 @app.route('/logout/')
 def logout():
     resp = make_response(redirect('/'))
     resp.delete_cookie("seabook_password")
+    print("IP地址为"+request.remote_addr+"的管理员退出了海书面板。")
     return resp
 
 app.run(debug=True,host='0.0.0.0')
