@@ -19,6 +19,7 @@
     <nav>
         <a href="#">概述</a>
         <div class="close">
+            <a href="/logout">退出登录</a>
             <a href="/server/reboot">重启</a>
             <a href="/server/shutdown">关机</a>
         </div>
@@ -27,8 +28,7 @@
         <h2>信息</h2>
         系统名称：{{platform}}<br>
         主机名称：{{hostname}}<br>
-        本地IP：{{local_ip}}<br>
-        公网IP：{{external_ip}}
+        IP地址：局域：{{local_ip}} / 公网： {{external_ip}}
     </div>
     <div class="card">
         <h2>状态</h2>

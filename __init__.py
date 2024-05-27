@@ -47,4 +47,10 @@ def login():
     resp.set_cookie("seabook_password", password_hash)
     return resp
 
+@app.route('/logout/')
+def logout():
+    resp = make_response(redirect('/'))
+    resp.delete_cookie("seabook_password")
+    return resp
+
 app.run(debug=True,host='0.0.0.0')
