@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>主页丨海书面板</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" type="resource/image/png" href={{url_for('static', filename='resource/image/logo.png')}}>
+    <link rel="stylesheet" href={{url_for('static', filename='resource/style/head.css')}}>
+    <link rel="stylesheet" href={{url_for('static', filename='resource/style/card.css')}}>
+</head>
+<body>
+    {% include 'sidebar.html' %}
+    <nav>
+        <a href="#">概述</a>
+        <div class="close">
+            <a href="/logout">退出登录</a>
+            <a href="/server/reboot">重启</a>
+            <a href="/server/shutdown">关机</a>
+        </div>
+    </nav>
+    <div class="card">
+        <h2>信息</h2>
+        系统名称：{{platform}}<br>
+        主机名称：{{hostname}}<br>
+        IP地址：局域：{{local_ip}} / 公网： {{external_ip}}
+    </div>
+    <div class="card">
+        <h2>状态</h2>
+        <h3>CPU/内存占用</h3>
+        <div class="server-status" style="position: relative; height:200px; width: 200px; display:inline-block;">
+            <canvas id="cpuChart"></canvas>
+            <center>CPU占用</center>
+        </div>
+        <div class="server-status"  style="position: relative; height:200px; width: 200px; display:inline-block;">
+            <canvas id="memoryChart"></canvas>
+            <center>内存占用</center>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    // 示例数据，替换为实际的CPU和内存使用率
+    const cpuPercent = "{{cpu_percent}}"; // CPU使用率
+    const memoryUsed = "{{memory_used}}"; // 内存使用率（以百分比表示）
+
+    // 创建CPU使用率饼状图
+    var ctxCPU = document.getElementById('cpuChart').getContext('2d');
+    var cpuChart = new Chart(ctxCPU, {
+        type: 'doughnut',
+        data: {
+            labels: ['已使用', '空闲'],
+            datasets: [{
+                label: 'CPU 使用',
+                data: [cpuPercent, 100 - cpuPercent],
+                backgroundColor: ['#FF6384', '#36A2EB']
+            }]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                position: 'bottom'
+            }
+        }
+    });
+
+    // 创建内存使用率饼状图
+    var ctxMemory = document.getElementById('memoryChart').getContext('2d');
+    var memoryChart = new Chart(ctxMemory, {
+        type: 'doughnut',
+        data: {
+            labels: ['已使用', '空闲'],
+            datasets: [{
+                label: '内存 使用',
+                data: [memoryUsed, 100 - memoryUsed],
+                backgroundColor: ['#FF6384', '#36A2EB']
+            }]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                position: 'bottom'
+            }
+        }
+    });
+</script>

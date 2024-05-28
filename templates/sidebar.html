@@ -7,7 +7,8 @@
 <body>
     <aside class="sidebar">
         <img src={{url_for('static', filename='resource/image/logo-long.png')}} alt="LOGO" width="100%" height="70px"></img>
-        <div class="card"><a href="#">主页</a></div>
+        <div class="card"><a href={{url_for('static', filename='../')}}>主页</a></div>
+        <div class="card"><a href={{url_for('static', filename='/website/')}}>网站（开发中）</a></div>
     </aside>
 </body>
 </html>

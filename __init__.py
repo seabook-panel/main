@@ -26,6 +26,10 @@ def home():
     cpu_percent = str(function.cpu_percent())
     return render_template('index.html',poetry=poetry,platform=display_platform,hostname=hostname,local_ip=local_ip,external_ip=external_ip,memory_used=memory_used,cpu_percent=cpu_percent)
 
+@app.route('/website/')
+def website():
+    return render_template('website/index.html')
+
 @app.route('/server/')
 def server_waring():
     return "</h1>海书面板提醒您：这里是用于控制服务器的重要区域，请不要主动访问。</h1>"
