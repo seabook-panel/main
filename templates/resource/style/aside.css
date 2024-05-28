@@ -44,6 +44,8 @@ aside .card:active {
 aside .card a {
     position: relative; /* 使h2成为定位上下文 */
     margin-left: 20px; /* 为竖条预留空间 */
+    text-decoration: none;
+    color: inherit;
 }
 
 aside .card a:before {
