@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>登录丨海书面板</title>
-    <link rel="stylesheet" href={{url_for('static', filename='style/login.css')}}>
+    <link rel="stylesheet" href={{url_for('static', filename='resource/style/login.css')}}>
 </head>
 <body>
     <div class="card">
-        <img src={{url_for('static', filename='image/logo-long.png')}} alt="LOGO"></img>
+        <img src={{url_for('static', filename='resource/image/logo-long.png')}} alt="LOGO"></img>
         <form action="/login" method="post">
             用户名：<input type="username" name="username"/><br>
             密码：<input type="password" name="password"/><br>

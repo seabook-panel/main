@@ -2,7 +2,7 @@ import platform
 import subprocess
 
 
-def reboot():
+def shutdown():
     if platform.system() == "Windows":
         subprocess.run(['shutdown', '-s', '-t', '0'])
     elif platform.system() == "Linux":
