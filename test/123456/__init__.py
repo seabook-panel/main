@@ -3,14 +3,14 @@ import os
 
 app = Flask(__name__)
 
-# å‡è®¾æ‰€æœ‰HTMLæ–‡ä»¶éƒ½åœ¨'templates'æ–‡ä»¶å¤¹å†…
+# ¼ÙÉèËùÓĞHTMLÎÄ¼ş¶¼ÔÚ'templates'ÎÄ¼ş¼ĞÄÚ
 @app.route('/')
 def index():
     return render_template('index.html')
 
 @app.route('/<path:filename>')
 def serve_html_pages(filename):
-    # æ£€æŸ¥è¯·æ±‚çš„è·¯å¾„æ˜¯å¦ä»¥'/'ç»“å°¾ï¼Œå¦‚æœæ˜¯ï¼Œåˆ™æ·»åŠ 'index.html'
+    # ¼ì²éÇëÇóµÄÂ·¾¶ÊÇ·ñÒÔ'/'½áÎ²£¬Èç¹ûÊÇ£¬ÔòÌí¼Ó'index.html'
     if filename.endswith('/'):
         filename += 'index.html'
 
@@ -18,3 +18,4 @@ def serve_html_pages(filename):
 
 if __name__ == '__main__':
     app.run(debug=True,port=80)
+    

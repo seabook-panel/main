@@ -36,12 +36,15 @@ def website():
     if auth() == False:
         return render_template('login.html')
     dir = request.form.get("dir", type=str, default=None)
-    if os.path.exists(dir) == False:
-        os.mkdir(dir)
+    name = request.form.get("name", type=str, default=None)
     if dir[-1] != "/":
         dir = dir+"/"
     if "\\" in dir:
         dir = dir.replace("\\", "/")
+    dir=dir+name+"/"
+    if os.path.exists(dir) == False:
+        os.mkdir(dir)
+    os.mkdir(dir+"templates")
     site_type = request.form.get("type", type=str, default=None)
     if site_type == "jinja2":
         with open(dir+"__init__.py", "w") as f:
@@ -64,10 +67,11 @@ def serve_html_pages(filename):
     return render_template(filename)
 
 if __name__ == '__main__':
-    app.run(debug=True,port=80)
+    app.run(debug=True,port="""+request.form.get("port", type=str, default=None)+""")
     """
             f.write(jinja2_code)
-    return "<h1>海书面板提醒您：已创建网站，位于目录"+dir+"</h1>"
+#        os.system("python "+dir+"__init__.py")
+        return "<h1>海书面板提醒您：已创建网站，位于目录"+dir+"</h1>"
 
 @app.route('/server/')
 def server_waring():
