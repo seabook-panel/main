@@ -2,7 +2,7 @@
 <html lang="zh-cn">
 <head>
     <meta charset="utf-8">
-    <title>主页丨海书面板</title>
+    <title>网站丨海书面板</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="icon" type="resource/image/png" href={{url_for('static', filename='resource/image/logo.png')}}>
     <link rel="stylesheet" href={{url_for('static', filename='resource/style/head.css')}}>
@@ -58,7 +58,8 @@
         button:hover {
             background-color: #0069d9;
         }
-
+        table { border-collapse: collapse;}
+table,table tr th, table tr td { border:1px solid #000000; }
     </style>
 </head>
 <body>
@@ -85,7 +86,19 @@
         </div>
     <div class="card">
         <h2>网站</h2>
-        暂无
+        <table border="1" width="100%">
+            <tr>
+              <td>名称</td>
+              <td>类型</td>
+              <td>目录</td>
+              <td>操作</td>
+            </tr>
+            <tr>
+              <td>TEST</td>
+              <td>N</td>
+              <td>N</td>
+            </tr>
+        </table>
     </div>
 
 </body>
