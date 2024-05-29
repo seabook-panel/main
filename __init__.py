@@ -4,6 +4,7 @@ import config
 import hashlib
 import platform
 import function
+import os
 
 def auth():
     seabook_password = request.cookies.get('seabook_password')
@@ -27,8 +28,46 @@ def home():
     return render_template('index.html',poetry=poetry,platform=display_platform,hostname=hostname,local_ip=local_ip,external_ip=external_ip,memory_used=memory_used,cpu_percent=cpu_percent)
 
 @app.route('/website/')
-def website():
+def website_warn():
     return render_template('website/index.html')
+
+@app.route('/website/create',methods=['POST'])
+def website():
+    if auth() == False:
+        return render_template('login.html')
+    dir = request.form.get("dir", type=str, default=None)
+    if os.path.exists(dir) == False:
+        os.mkdir(dir)
+    if dir[-1] != "/":
+        dir = dir+"/"
+    if "\\" in dir:
+        dir = dir.replace("\\", "/")
+    site_type = request.form.get("type", type=str, default=None)
+    if site_type == "jinja2":
+        with open(dir+"__init__.py", "w") as f:
+            jinja2_code = R"""from flask import Flask, abort, render_template
+import os
+
+app = Flask(__name__)
+
+# 假设所有HTML文件都在'templates'文件夹内
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/<path:filename>')
+def serve_html_pages(filename):
+    # 检查请求的路径是否以'/'结尾，如果是，则添加'index.html'
+    if filename.endswith('/'):
+        filename += 'index.html'
+
+    return render_template(filename)
+
+if __name__ == '__main__':
+    app.run(debug=True,port=80)
+    """
+            f.write(jinja2_code)
+    return "<h1>海书面板提醒您：已创建网站，位于目录"+dir+"</h1>"
 
 @app.route('/server/')
 def server_waring():

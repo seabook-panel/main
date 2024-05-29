@@ -7,79 +7,94 @@
     <link rel="icon" type="resource/image/png" href={{url_for('static', filename='resource/image/logo.png')}}>
     <link rel="stylesheet" href={{url_for('static', filename='resource/style/head.css')}}>
     <link rel="stylesheet" href={{url_for('static', filename='resource/style/card.css')}}>
+    <style>
+        /* 遮罩层样式 */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: none; /* 默认隐藏 */
+        }
+
+        /* 弹窗样式 */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: none; /* 默认隐藏 */
+        }
+        label {
+            width: 100px;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"], select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        select option {
+            color: #555;
+        }
+        button {
+            padding: 5px 10px;
+            border-radius: 3px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0069d9;
+        }
+
+    </style>
 </head>
 <body>
     {% include 'sidebar.html' %}
     <nav>
-        <a href="#">概述</a>
-        <div class="close">
-            <a href="/logout">退出登录</a>
-            <a href="/server/reboot">重启</a>
-            <a href="/server/shutdown">关机</a>
-        </div>
+        <button id="create_website">添加</button>
     </nav>
-    <div class="card">
-        <h2>信息</h2>
-        系统名称：{{platform}}<br>
-        主机名称：{{hostname}}<br>
-        IP地址：局域：{{local_ip}} / 公网： {{external_ip}}
-    </div>
-    <div class="card">
-        <h2>状态</h2>
-        <h3>CPU/内存占用</h3>
-        <div class="server-status" style="position: relative; height:200px; width: 200px; display:inline-block;">
-            <canvas id="cpuChart"></canvas>
-            <center>CPU占用</center>
+    <div class="popup" id="popup">
+        <form action="/website/create" method="post">
+            <label>名称：</label>
+            <input type="text" name="name" placeholder="请输入网站名称"/><br><br>
+            <label>目录：</label>
+            <input type="text" name="dir" placeholder="请输入网站目录" /><br><br>
+            <label>类型</label>
+            <select name="type">
+                <option value="jinja2">Jinja2模板</option>
+                <option>Flask应用程序（暂未开发）</option>
+            </select><br><br>
+            <button id="closebtn()">关闭</button>
+            <button type="submit">提交</button>
+        </form>
         </div>
-        <div class="server-status"  style="position: relative; height:200px; width: 200px; display:inline-block;">
-            <canvas id="memoryChart"></canvas>
-            <center>内存占用</center>
-        </div>
+    <div class="card">
+        <h2>网站</h2>
+        暂无
     </div>
+
 </body>
-</html>
 <script>
-    // 示例数据，替换为实际的CPU和内存使用率
-    const cpuPercent = "{{cpu_percent}}"; // CPU使用率
-    const memoryUsed = "{{memory_used}}"; // 内存使用率（以百分比表示）
-
-    // 创建CPU使用率饼状图
-    var ctxCPU = document.getElementById('cpuChart').getContext('2d');
-    var cpuChart = new Chart(ctxCPU, {
-        type: 'doughnut',
-        data: {
-            labels: ['已使用', '空闲'],
-            datasets: [{
-                label: 'CPU 使用',
-                data: [cpuPercent, 100 - cpuPercent],
-                backgroundColor: ['#FF6384', '#36A2EB']
-            }]
-        },
-        options: {
-            responsive: true,
-            legend: {
-                position: 'bottom'
-            }
-        }
-    });
-
-    // 创建内存使用率饼状图
-    var ctxMemory = document.getElementById('memoryChart').getContext('2d');
-    var memoryChart = new Chart(ctxMemory, {
-        type: 'doughnut',
-        data: {
-            labels: ['已使用', '空闲'],
-            datasets: [{
-                label: '内存 使用',
-                data: [memoryUsed, 100 - memoryUsed],
-                backgroundColor: ['#FF6384', '#36A2EB']
-            }]
-        },
-        options: {
-            responsive: true,
-            legend: {
-                position: 'bottom'
-            }
-        }
-    });
+    const create_website=document.getElementById('create_website');
+    const closebtn=document.getElementById('closebtn');
+    const popup=document.getElementById('popup');
+    const overlay=document.getElementById('overlay');
+    create_website.addEventListener('click',function(){
+        popup.style.display='block';
+        overlay.style.display='block';
+    })
 </script>
+</html>
