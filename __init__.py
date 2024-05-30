@@ -69,6 +69,14 @@ def serve_html_pages(filename):
 if __name__ == '__main__':
     app.run(debug=True,port="""+request.form.get("port", type=str, default=None)+""")"""
             f.write(jinja2_code)
+        name = name.replace(" ", "")
+        data = toml.load("website.toml")
+        try:
+            last_name = next(iter(data.keys()))
+            last_id = data[last_name]["id"]
+        except IndexError:
+            last_id = 0
+        toml.dump({name:{"id":int(last_id)+1,"name":name,"dir":dir,"type":"Jinja2","port":request.form.get("port", type=str, default=None)}}, open("website.toml", "a"))
         return "<h1>海书面板提醒您：已创建网站，位于目录"+dir+"</h1>"
 
 @app.route('/website/delete/<id>')

@@ -38,17 +38,18 @@
               <td>ID</td>
               <td>名称</td>
               <td>类型</td>
+              <td>端口</td>
               <td>目录</td>
               <td>操作</td>
             </tr>
-            {% set website_index = 1 %}
             {% for key, value in websites.items() %}
             <tr>
-              <td>{{ website_index}}</td>
+              <td>{{ value.id }}</td>
               <td>{{ value.name }}</td>
               <td>{{ value.type }}</td>
+              <td>{{ value.port }}</td>
               <td>{{ value.dir }}</td>
-              <td><a href="/website/delete/{{ website_index }}">删除</a></td>
+              <td><a href="/website/delete/{{ value.id }}">删除</a></td>
             </tr>
             {% endfor %}
         </table>
