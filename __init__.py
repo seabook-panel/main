@@ -4,11 +4,9 @@ import config
 import hashlib
 import platform
 import function
-import threading
-import importlib
 import os
-import sys
-from pathlib import Path
+import toml
+import shutil
 
 def auth():
     seabook_password = request.cookies.get('seabook_password')
@@ -32,11 +30,11 @@ def home():
     return render_template('index.html',poetry=poetry,platform=display_platform,hostname=hostname,local_ip=local_ip,external_ip=external_ip,memory_used=memory_used,cpu_percent=cpu_percent)
 
 @app.route('/website/')
-def website_warn():
-    return render_template('website/index.html')
+def website():
+    return render_template('website/index.html',websites=toml.load('./website.toml'))
 
 @app.route('/website/create',methods=['POST'])
-def website():
+def website_create():
     if auth() == False:
         return render_template('login.html')
     dir = request.form.get("dir", type=str, default=None)
@@ -56,7 +54,6 @@ import os
 
 app = Flask(__name__)
 
-# 假设所有HTML文件都在'templates'文件夹内
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -73,6 +70,19 @@ if __name__ == '__main__':
     app.run(debug=True,port="""+request.form.get("port", type=str, default=None)+""")"""
             f.write(jinja2_code)
         return "<h1>海书面板提醒您：已创建网站，位于目录"+dir+"</h1>"
+
+@app.route('/website/delete/<id>')
+def website_delete(id):
+    if auth() == False:
+        return render_template('login.html')
+    website_config = toml.load("website.toml")
+    if id in website_config:
+        shutil.rmtree(website_config[id]["dir"])
+        del website_config[id]
+        toml.dump(website_config, open("website.toml", "w"))
+        return "<h1>海书面板提醒您：已删除网站"+id+"</h1>"
+    else:
+        return "<h1>网站"+id+"不存在。</h1>"
 
 @app.route('/server/')
 def server_waring():
