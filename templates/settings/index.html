@@ -10,12 +10,15 @@
 <body>
     {% include 'sidebar.html' %}
     <nav>
-        <button id="create_website">添加</button>
+        <button onclick="window.location.href='./'" id="">基本设置</button>
     </nav>
 
     <div class="card">
-        <h2>设置</h2>
-        还没有开发完，先去别的地方看看！
+        <h2>基本设置</h2>
+        <form action="/account/change_verify" method="post">
+            密码：<input type="text" name="password">
+            <input type="submit" value="提交">
+        </form>
     </div>
 
 </body>

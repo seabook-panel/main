@@ -37,16 +37,6 @@
         select option {
             color: #555;
         }
-        button {
-            padding: 5px 10px;
-            border-radius: 3px;
-            border: none;
-            background-color: #007bff;
-            color: #fff;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0069d9;
-        }
+
         table { border-collapse: collapse;}
 table,table tr th, table tr td { border:1px solid #000000; }

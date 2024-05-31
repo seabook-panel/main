@@ -107,20 +107,35 @@ def server(name):
     if name == "shutdown":
         function.shutdown()
 
-@app.route('/login/',methods=['POST'])
-def login():
-    resp = make_response(redirect('/'))
-    password = request.form.get("password", type=str, default=None)
-    password_hash = hashlib.sha512(password.encode()).hexdigest()
-    resp.set_cookie("seabook_password", password_hash)
-    print("IP地址为"+request.remote_addr+"的管理员登录了海书面板。")
-    return resp
+@app.route('/settings/')
+def settings():
+    if auth() == False:
+        return render_template('login.html')
+    return render_template('settings/index.html')
 
-@app.route('/logout/')
-def logout():
-    resp = make_response(redirect('/'))
-    resp.delete_cookie("seabook_password")
-    print("IP地址为"+request.remote_addr+"的管理员退出了海书面板。")
-    return resp
+@app.route('/account/<name>',methods=['POST'])
+def account(name):
+    if name == "login":
+        resp = make_response(redirect('/'))
+        password = request.form.get("password", type=str, default=None)
+        password_hash = hashlib.sha256(password.encode()).hexdigest()
+        resp.set_cookie("seabook_password", password_hash)
+        print("IP地址为"+request.remote_addr+"的管理员登录了海书面板。")
+        return resp
+    if name == "logout":
+        resp = make_response(redirect('/'))
+        resp.delete_cookie("seabook_password")
+        print("IP地址为"+request.remote_addr+"的管理员退出了海书面板。")
+        return resp
+    if name == "change_verify":
+        if auth() == False:
+            return render_template('login.html')
+        password = request.form.get("password", type=str, default=None)
+        if password == None:
+            password = config.get_admin_password()
+        else:
+            password = hashlib.sha256(password.encode()).hexdigest()
+        config.set_admin_password(password)
+        return redirect('/')
 
 app.run(debug=True,host='0.0.0.0')

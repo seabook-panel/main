@@ -11,7 +11,7 @@ nav {
 
   
   /* 导航链接 */
-  nav a {
+  nav a,button {
     color: #333;
     border-style:solid;
     border-color:#7B68EE;
@@ -25,7 +25,7 @@ nav {
     margin-right: 5px;
   }
   
-  nav a:hover {
+  nav a:hover,button:hover {
     background-color: #e9ecef; /* 浅灰色，模拟鼠标悬停时的轻微凸起 */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 -1px 2px rgba(0, 0, 0, 0.1);
   }

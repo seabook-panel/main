@@ -14,7 +14,7 @@
         <button id="create_website">添加</button>
     </nav>
     <div class="popup" id="popup">
-        <form action="/website/create" method="post">
+        <form action="./create" method="post">
             <label>名称：</label>
             <input type="text" name="name" placeholder="请输入网站名称"/><br><br>
             <label>目录：</label>
@@ -48,7 +48,7 @@
               <td>{{ value.type }}</td>
               <td>{{ value.port }}</td>
               <td>{{ value.dir }}</td>
-              <td><a href="/website/delete/{{ value.id }}">删除</a></td>
+              <td><a href="./delete/{{ value.id }}">删除</a></td>
             </tr>
             {% endfor %}
         </table>
