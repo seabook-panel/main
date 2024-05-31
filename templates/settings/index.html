@@ -6,68 +6,17 @@
     <link rel="icon" type="resource/image/png" href={{url_for('static', filename='resource/image/logo.png')}}>
     <link rel="stylesheet" href={{url_for('static', filename='resource/style/head.css')}}>
     <link rel="stylesheet" href={{url_for('static', filename='resource/style/card.css')}}>
-    <link rel="stylesheet" href={{url_for('static', filename='resource/style/website.css')}}>
 </head>
 <body>
     {% include 'sidebar.html' %}
     <nav>
         <button id="create_website">添加</button>
     </nav>
-    <div class="popup" id="popup">
-        <form action="/website/create" method="post">
-            <label>名称：</label>
-            <input type="text" name="name" placeholder="请输入网站名称"/><br><br>
-            <label>目录：</label>
-            <input type="text" name="dir" placeholder="请输入网站目录" /><br><br>
-            <label>端口：</label>
-            <input type="text" name="port" placeholder="请输入网站端口" /><br><br>
-            <label>类型</label>
-            <select name="type">
-                <option value="jinja2">Jinja2模板</option>
-                <option value="php">PHP（暂未开发）</option>
-            </select><br><br>
-            <button id="closebtn">关闭</button>
-            <button type="submit">提交</button>
-        </form>
-        </div>
+
     <div class="card">
-        <h2>网站</h2>
-        <table border="1" width="100%">
-            <tr>
-              <td>ID</td>
-              <td>名称</td>
-              <td>类型</td>
-              <td>端口</td>
-              <td>目录</td>
-              <td>操作</td>
-            </tr>
-            {% for key, value in websites.items() %}
-            <tr>
-              <td>{{ value.id }}</td>
-              <td>{{ value.name }}</td>
-              <td>{{ value.type }}</td>
-              <td>{{ value.port }}</td>
-              <td>{{ value.dir }}</td>
-              <td><a href="/website/delete/{{ value.id }}">删除</a></td>
-            </tr>
-            {% endfor %}
-        </table>
+        <h2>设置</h2>
+        还没有开发完，先去别的地方看看！
     </div>
 
 </body>
-<script>
-    const create_website=document.getElementById('create_website');
-    const closebtn=document.getElementById('closebtn');
-    const popup=document.getElementById('popup');
-    const overlay=document.getElementById('overlay');
-    create_website.addEventListener('click',function(){
-        popup.style.display='block';
-        overlay.style.display='block';
-    })
-    closebtn.addEventListener('click',function(){
-        event.preventDefault();
-        popup.style.display='none';
-        overlay.style.display='none';
-    })
-</script>
 </html>
