@@ -10,7 +10,7 @@ import shutil
 
 def auth():
     seabook_password = request.cookies.get('seabook_password')
-    if seabook_password != config.get_admin_password():
+    if seabook_password != config.get_login_info():
         return False
 
 app = Flask(__name__, static_folder="templates",static_url_path='')
@@ -113,7 +113,7 @@ def settings():
         return render_template('login.html')
     return render_template('settings/index.html')
 
-@app.route('/account/<name>',methods=['POST'])
+@app.route('/account/<name>',methods=['POST','GET'])
 def account(name):
     if name == "login":
         resp = make_response(redirect('/'))
@@ -131,11 +131,9 @@ def account(name):
         if auth() == False:
             return render_template('login.html')
         password = request.form.get("password", type=str, default=None)
-        if password == None:
-            password = config.get_admin_password()
-        else:
+        if password != None:
             password = hashlib.sha256(password.encode()).hexdigest()
-        config.set_admin_password(password)
+            config.set_admin_password(password)
         return redirect('/')
 
 app.run(debug=True,host='0.0.0.0')

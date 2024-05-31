@@ -3,19 +3,20 @@ import os
 import hashlib
 
 path = os.getcwd() + "\\config.toml"
-def get_admin_password():
+def get_login_info():
     config = toml.load(path)
-    password = config['admin']['password']
-    if config['admin']['password_hash'] == "False":
-        hash_password = hashlib.sha256(password.encode()).hexdigest()
-        return hash_password
-    else:
+    password = config['account']['password']
+    try:
+        if config['account']['password_hash'] == "False":
+            hash_password = hashlib.sha256(password.encode()).hexdigest()
+            return hash_password
+    except KeyError:
         return password
     
-def set_admin_password(password):
+def set_account_password(password):
     config = toml.load(path)
-    config['admin']['password'] = password
-    config['admin']['password_hash'] = "True"
+    config['account']['password'] = password
+    config['account']['password_hash'] = "True"
     with open(path, 'w') as f:
         toml.dump(config, f)
     return

@@ -13,7 +13,18 @@
             密码：<input type="password" name="password"/><br>
             <input type="submit" value="登录">
         </form>
-    
+        <h3>你知道吗</h3>
+        <p>
+            当你忘记密码时，可以前往后台的config.toml修改密码。
+            修改方法：
+            将config.toml中的内容替换成下列信息：
+            <pre>
+                [account]
+                username = "admin"
+                password = "123456"
+                password_hash = "False"
+            </pre>
+        </p>
     </div>
 </body>
 </html>
