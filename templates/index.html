@@ -12,6 +12,7 @@
     {% include 'sidebar.html' %}
     <nav>
         <a href="#">概述</a>
+        {{info["welcome"]}}
         <div class="close">
             <a href="/account/logout">退出登录</a>
             <a href="/power/reboot">重启</a>
@@ -20,9 +21,9 @@
     </nav>
     <div class="card">
         <h2>信息</h2>
-        系统名称：{{platform}}<br>
-        主机名称：{{hostname}}<br>
-        IP地址：局域：{{local_ip}} / 公网： {{external_ip}}
+        系统名称：{{info["platform"]}}<br>
+        主机名称：{{info["hostname"]}}<br>
+        IP地址：局域：{{info["ip"][0]}} / 公网： {{info["ip"][1]}}
     </div>
     <div class="card">
         <h2>状态</h2>
@@ -40,8 +41,8 @@
 </html>
 <script>
     // 示例数据，替换为实际的CPU和内存使用率
-    const cpuPercent = "{{cpu_percent}}"; // CPU使用率
-    const memoryUsed = "{{memory_used}}"; // 内存使用率（以百分比表示）
+    const cpuPercent = '{{info["cpu"]}}'; // CPU使用率
+    const memoryUsed = '{{info["memory"]}}'; // 内存使用率（以百分比表示）
 
     // 创建CPU使用率饼状图
     var ctxCPU = document.getElementById('cpuChart').getContext('2d');

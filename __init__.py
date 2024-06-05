@@ -16,13 +16,20 @@ def home():
         return render_template('login.html')
     poetry = requests.get('https://xinghaiapi.pythonanywhere.com/poetry-moment/get/text')
     poetry = str(poetry.content,'utf-8')
-    display_platform = str(platform.platform())
     hostname = str(platform.node())
     local_ip = str(function.local_ip())
     external_ip = str(function.external_ip())
     memory_used = str(function.memory_used()).replace('GB', '')
     cpu_percent = str(function.cpu_percent())
-    return render_template('index.html',poetry=poetry,platform=display_platform,hostname=hostname,local_ip=local_ip,external_ip=external_ip,memory_used=memory_used,cpu_percent=cpu_percent)
+    info = {
+        'welcome': poetry,
+        'platform': str(platform.platform()),
+        'hostname': hostname,
+        'ip': [local_ip,external_ip],
+        'memory': memory_used,
+        'cpu': cpu_percent
+    }
+    return render_template('index.html',info=info)
 
 @app.route('/power/<name>')
 def power(name):
