@@ -1,6 +1,5 @@
 from flask import Flask, redirect,render_template,request,make_response,after_this_request
 from auth import auth
-import requests
 import config
 import hashlib
 import platform
@@ -14,15 +13,12 @@ app.register_blueprint(website.app, url_prefix='/website')
 def home():
     if auth() == False:
         return render_template('login.html')
-    poetry = requests.get('https://xinghaiapi.pythonanywhere.com/poetry-moment/get/text')
-    poetry = str(poetry.content,'utf-8')
     hostname = str(platform.node())
     local_ip = str(function.local_ip())
     external_ip = str(function.external_ip())
     memory_used = str(function.memory_used()).replace('GB', '')
     cpu_percent = str(function.cpu_percent())
     info = {
-        'welcome': poetry,
         'platform': str(platform.platform()),
         'hostname': hostname,
         'ip': [local_ip,external_ip],
