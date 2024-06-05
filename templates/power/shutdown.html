@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>主页丨海书面板</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" type="resource/image/png" href={{url_for('static', filename='resource/image/logo.png')}}>
+    <link rel="stylesheet" href={{url_for('static', filename='resource/style/head.css')}}>
+    <link rel="stylesheet" href={{url_for('static', filename='resource/style/card.css')}}>
+    <style>
+        .card{
+            position: relative;
+        }
+        h2{
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    {% include 'sidebar.html' %}
+    <nav>
+        <a href="#">概述</a>
+        <div class="close">
+            <a href="/account/logout">退出登录</a>
+            <a href="/power/reboot">重启</a>
+            <a href="/power/shutdown">关机</a>
+        </div>
+    </nav>
+    <div class="card">
+        <h2>系统已关闭</h2>
+    </div>
+</body>
+</html>
