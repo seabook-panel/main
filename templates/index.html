@@ -12,13 +12,16 @@
     {% include 'sidebar.html' %}
     <nav>
         <a href="#">概述</a>
-        {{info["welcome"]}}
         <div class="close">
             <a href="/account/logout">退出登录</a>
             <a href="/power/reboot">重启</a>
             <a href="/power/shutdown">关机</a>
         </div>
     </nav>
+    <div class="card">
+        <h2>欢迎</h2>
+        {{info["welcome"]}}
+    </div>
     <div class="card">
         <h2>信息</h2>
         系统名称：{{info["platform"]}}<br>
