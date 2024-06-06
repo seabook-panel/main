@@ -1,0 +1,5 @@
+[1]
+name = "TestWebsite2"
+dir = "F:/Dev/OpenSource/xinghai-osc/seabook-panel/seabook-panel/test/Test Website2/"
+type = "Jinja2"
+port = "8080"

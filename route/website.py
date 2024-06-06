@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request
 import toml
 import os
 import shutil
+import subprocess
 
 from auth import auth
 app = Blueprint('website', __name__)
@@ -25,7 +26,7 @@ def create():
         os.mkdir(appdir)
     site_type = request.form.get("type", type=str, default=None)
     if site_type == "jinja2":
-        with open(appdir+"__init__.py", "w") as f:
+        with open(appdir+"__init__.py", "w",encoding="utf-8") as f:
             jinja2_code = R"""from flask import Flask, abort, render_template
 import os
 
@@ -49,12 +50,35 @@ if __name__ == '__main__':
         name = name.replace(" ", "")
         data = toml.load("website.toml")
         try:
-            last_name = next(iter(data.keys()))
-            last_id = data[last_name]["id"]
+            last_id = next(iter(data.keys()))
         except IndexError:
             last_id = 0
-        toml.dump({name:{"id":int(last_id)+1,"name":name,"dir":dir,"type":"Jinja2","port":request.form.get("port", type=str, default=None)}}, open("website.toml", "a"))
+        except StopIteration:
+            last_id = 0
+        except KeyError:
+            last_id = 0
+        new_website = {
+            str(int(last_id)+1):{
+                "name":name,
+                "dir":appdir,
+                "type":"Jinja2",
+                "port":request.form.get("port", type=str, default=None)
+                }
+            }
+        
+        toml.dump(new_website, open("website.toml", "a"))
         return "<h1>海书面板提醒您：已创建网站，位于目录"+dir+"</h1>"
+
+@app.route('/start/<id>')
+def start(id):
+    if auth() == False:
+        return render_template('login.html')
+    website_config = toml.load("website.toml")
+    if id in website_config:
+        output = subprocess.Popen(["python", website_config[id]["dir"]+"__init__.py"])
+        print(output.decode())
+
+    return "<h1>海书面板提醒您：已启动网站"+id+"</h1>"
 
 @app.route('/delete/<id>')
 def delete(id):
@@ -64,7 +88,8 @@ def delete(id):
     if id in website_config:
         shutil.rmtree(website_config[id]["dir"])
         del website_config[id]
-        toml.dump(website_config, open("website.toml", "w"))
+        with open("website.toml", "w") as f:
+            toml.dump(website_config, f)
         return "<h1>海书面板提醒您：已删除网站"+id+"</h1>"
     else:
         return "<h1>网站"+id+"不存在。</h1>"

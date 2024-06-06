@@ -43,12 +43,12 @@
             </tr>
             {% for key, value in websites.items() %}
             <tr>
-              <td>{{ value.id }}</td>
+              <td>{{ key }}</td>
               <td>{{ value.name }}</td>
               <td>{{ value.type }}</td>
               <td>{{ value.port }}</td>
               <td>{{ value.dir }}</td>
-              <td><a href="./delete/{{ value.id }}">删除</a></td>
+              <td><a href="./start/{{ key }}">启动</a> <a href="./delete/{{ key }}">删除</a></td>
             </tr>
             {% endfor %}
         </table>

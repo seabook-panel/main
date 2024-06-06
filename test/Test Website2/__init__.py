@@ -9,7 +9,7 @@ def index():
 
 @app.route('/<path:filename>')
 def serve_html_pages(filename):
-    # ¼ì²éÇëÇóµÄÂ·¾¶ÊÇ·ñÒÔ'/'½áÎ²£¬Èç¹ûÊÇ£¬ÔòÌí¼Ó'index.html'
+    # æ£€æŸ¥è¯·æ±‚çš„è·¯å¾„æ˜¯å¦ä»¥'/'ç»“å°¾ï¼Œå¦‚æœæ˜¯ï¼Œåˆ™æ·»åŠ 'index.html'
     if filename.endswith('/'):
         filename += 'index.html'
 
