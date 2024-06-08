@@ -1,13 +1,12 @@
-from flask import Flask, redirect,render_template,request,make_response,after_this_request
+from flask import Flask, redirect,render_template,request,after_this_request
 from auth import auth
-import config
-import hashlib
 import platform
 import function
-from route import website
+from route import website,account
 
 app = Flask(__name__, static_folder="templates",static_url_path='')
 app.register_blueprint(website.app, url_prefix='/website')
+app.register_blueprint(account.app, url_prefix='/account')
 
 @app.route('/')
 def home():
@@ -51,28 +50,5 @@ def settings():
     if auth() == False:
         return render_template('login.html')
     return render_template('settings/index.html')
-
-@app.route('/account/<name>',methods=['POST','GET'])
-def account(name):
-    if name == "login":
-        resp = make_response(redirect('/'))
-        password = request.form.get("password", type=str, default=None)
-        password_hash = hashlib.sha256(password.encode()).hexdigest()
-        resp.set_cookie("seabook_password", password_hash)
-        print("IP地址为"+request.remote_addr+"的管理员登录了海书面板。")
-        return resp
-    if name == "logout":
-        resp = make_response(redirect('/'))
-        resp.delete_cookie("seabook_password")
-        print("IP地址为"+request.remote_addr+"的管理员退出了海书面板。")
-        return resp
-    if name == "change_verify":
-        if auth() == False:
-            return render_template('login.html')
-        password = request.form.get("password", type=str, default=None)
-        if password != None:
-            password = hashlib.sha256(password.encode()).hexdigest()
-            config.set_admin_password(password)
-        return redirect('/')
 
 app.run(debug=True,host='0.0.0.0')
