@@ -18,14 +18,16 @@ def home():
     hostname = str(platform.node())
     local_ip = str(function.local_ip())
     external_ip = str(function.external_ip())
-    memory_used = str(function.memory_used())
-    cpu_percent = str(function.cpu_percent())
     info = {
         'platform': str(platform.platform()),
         'hostname': hostname,
         'ip': [local_ip,external_ip],
-        'memory': memory_used,
-        'cpu': cpu_percent
+        'memory': {
+            'used': str(function.memory_used())
+        },
+        'cpu': {
+            'used':str(function.cpu_percent())
+        }
     }
     return render_template('index.html',info=info)
 
