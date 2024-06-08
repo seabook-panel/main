@@ -1,5 +1,6 @@
-from flask import Flask, redirect,render_template,request,after_this_request
+from flask import Flask,render_template,request,after_this_request
 from auth import auth
+import config
 import platform
 import function
 from route import website,account
@@ -7,6 +8,8 @@ from route import website,account
 app = Flask(__name__, static_folder="templates",static_url_path='')
 app.register_blueprint(website.app, url_prefix='/website')
 app.register_blueprint(account.app, url_prefix='/account')
+app.config['HOST'] = config.get_server_info()['host']
+app.config['PORT'] = config.get_server_info()['port']
 
 @app.route('/')
 def home():
@@ -51,4 +54,10 @@ def settings():
         return render_template('login.html')
     return render_template('settings/index.html')
 
-app.run(debug=True,host='0.0.0.0')
+if __name__ == '__main__':
+    mode = config.get_server_info()['mode']
+    if mode == "Debug" or mode == "debug":
+        app.run(host=app.config['HOST'],port=app.config['PORT'],debug=True)
+    else:
+        print("哎呀！出错啦！")
+        print("您未开启Debug模式，请使用WSGI运行。")

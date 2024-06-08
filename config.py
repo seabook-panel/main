@@ -13,6 +13,9 @@ def get_login_info():
     except KeyError:
         return password
     
+def get_server_info():
+    config = toml.load(path)
+    return config['server']
 def set_account_password(password):
     config = toml.load(path)
     config['account']['password'] = password

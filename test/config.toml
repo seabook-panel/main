@@ -1,3 +1,8 @@
+[server]
+host = "0.0.0.0"
+mode = "debug"
+port = 8080
+
 [account]
 username = "admin"
 password = "123456"
