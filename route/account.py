@@ -1,7 +1,6 @@
 import hashlib
 from flask import Blueprint, render_template, request, make_response, redirect
 from auth import auth
-import config
 app = Blueprint('account', __name__)
 
 
@@ -18,6 +17,8 @@ def login():
 
 @app.route('/logout')
 def logout():
+    if auth() == False:
+        return redirect('/')
     resp = make_response(redirect('/'))
     resp.delete_cookie("seabook_password")
     resp.delete_cookie("seabook_username")
