@@ -1,5 +1,5 @@
 import hashlib
-from flask import Blueprint, render_template, request, make_response, redirect
+from flask import Blueprint, request, make_response, redirect
 from auth import auth
 app = Blueprint('account', __name__)
 
