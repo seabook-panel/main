@@ -9,8 +9,8 @@ app = Flask(__name__, static_folder="templates",static_url_path='')
 app.register_blueprint(website.app, url_prefix='/website')
 app.register_blueprint(account.app, url_prefix='/account')
 app.register_blueprint(settings.app, url_prefix='/settings')
-app.config['HOST'] = config.get_server_info()['host']
-app.config['PORT'] = config.get_server_info()['port']
+app.config['HOST'] = config.get_config("server", "host")
+app.config['PORT'] = config.get_config("server", "port")
 
 @app.route('/')
 def home():
@@ -55,7 +55,7 @@ def power(name):
         return render_template('power/shutdown.html')
 
 if __name__ == '__main__':
-    mode = config.get_server_info()['mode']
+    mode = config.get_config("server", "mode")
     if mode == "Debug" or mode == "debug":
         app.run(host=app.config['HOST'],port=app.config['PORT'],debug=True)
     else:
