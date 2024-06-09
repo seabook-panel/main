@@ -6,21 +6,26 @@
     <link rel="icon" type="resource/image/png" href={{url_for('static', filename='resource/image/logo.png')}}>
     <link rel="stylesheet" href={{url_for('static', filename='resource/style/head.css')}}>
     <link rel="stylesheet" href={{url_for('static', filename='resource/style/card.css')}}>
+    <link rel="stylesheet" href={{url_for('static', filename='resource/style/form.css')}}>
 </head>
 <body>
     {% include 'sidebar.html' %}
     <nav>
         <button onclick="window.location.href='./'" id="">基础</button>
         <button onclick="window.location.href='./appearance'" id="">外观</button>
+        <button onclick="window.location.href='./security'" id="">安全</button>
     </nav>
 
-    <div class="card">
-        <h2>基础</h2>
-        <form action="/account/change_verify" method="post">
-            密码：<input type="text" name="password"><br>
-            <input type="submit" value="提交">
-        </form>
-    </div>
+<div class="card">
+    <h2>基础</h2>
+    <form action="./change/user" method="post">
+        <label for="username">用户：</label>
+        <input type="text" id="username" name="username">
+        <label for="password">密码：</label>
+        <input type="password" id="password" name="password">
+        <button type="submit">保存</button>
+    </form>
+</div>
 
 </body>
 </html>

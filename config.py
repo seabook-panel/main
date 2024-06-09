@@ -23,3 +23,10 @@ def set_account_password(password):
     with open(path, 'w') as f:
         toml.dump(config, f)
     return
+
+def set_config(group, key, value):
+    config = toml.load(path)
+    config[group][key] = value
+    with open(path, 'w') as f:
+        toml.dump(config, f)
+    return

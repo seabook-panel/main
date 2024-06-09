@@ -20,13 +20,3 @@ def logout():
     resp.delete_cookie("seabook_password")
     print("IP地址为"+request.remote_addr+"的管理员退出了海书面板。")
     return resp
-
-@app.route('/change_verify',methods=['POST','GET'])
-def change_verify():
-    if auth() == False:
-        return render_template('login.html')
-    password = request.form.get("password", type=str, default=None)
-    if password != None:
-        password = hashlib.sha256(password.encode()).hexdigest()
-        config.set_account_password(password)
-    return redirect('/')

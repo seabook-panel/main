@@ -2,7 +2,7 @@ aside {
     position: fixed;
     top: 0;
     left: 0;
-    height: 99%; /* 高度 */
+    height: 100%; /* 高度 */
     background-color: #E5EFFD; /* 背景色 */
     transition: all 0.3s ease; /* 过渡效果 */
     overflow-y: auto; /* 防止内容溢出 */

@@ -43,7 +43,7 @@
     const cpuPercent = '{{info["cpu"]["used"]}}'; // CPU使用率
     const memoryUsed = '{{info["memory"]["used"]}}'; // 内存使用率（以百分比表示）
 
-    // 创建CPU使用率饼状图
+    // 创建CPU使用率环形图
     var ctxCPU = document.getElementById('cpuChart').getContext('2d');
     var cpuChart = new Chart(ctxCPU, {
         type: 'doughnut',
@@ -63,7 +63,7 @@
         }
     });
 
-    // 创建内存使用率饼状图
+    // 创建内存使用率环形图
     var ctxMemory = document.getElementById('memoryChart').getContext('2d');
     var memoryChart = new Chart(ctxMemory, {
         type: 'doughnut',
