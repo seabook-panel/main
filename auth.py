@@ -3,7 +3,7 @@ from flask import request
 import toml
 import os
 
-path = os.getcwd() + 'config.toml'
+path = os.getcwd() + '/config.toml'
 
 def auth():
     seabook_password = request.cookies.get('seabook_password')
