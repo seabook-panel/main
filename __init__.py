@@ -3,11 +3,12 @@ from auth import auth
 import config
 import platform
 import function
-from route import website,account
+from route import website,account,settings
 
 app = Flask(__name__, static_folder="templates",static_url_path='')
 app.register_blueprint(website.app, url_prefix='/website')
 app.register_blueprint(account.app, url_prefix='/account')
+app.register_blueprint(settings.app, url_prefix='/settings')
 app.config['HOST'] = config.get_server_info()['host']
 app.config['PORT'] = config.get_server_info()['port']
 
@@ -26,7 +27,10 @@ def home():
             'used': str(function.memory_used())
         },
         'cpu': {
-            'used':str(function.cpu_percent())
+            'used':str(function.cpu_percent()),
+            'core_number':{
+                "core": str(function.cpu_count_core())},
+                "logical": str(function.cpu_count_logical())
         }
     }
     return render_template('index.html',info=info)
@@ -49,12 +53,6 @@ def power(name):
             print("IP地址为"+request.remote_addr+"的管理员关闭了服务器。")
             return response
         return render_template('power/shutdown.html')
-
-@app.route('/settings/')
-def settings():
-    if auth() == False:
-        return render_template('login.html')
-    return render_template('settings/index.html')
 
 if __name__ == '__main__':
     mode = config.get_server_info()['mode']
