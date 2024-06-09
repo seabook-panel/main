@@ -44,3 +44,12 @@ def change_panel():
     if host != None:
         config.set_config("server", "host", host)
     return redirect('/settings')
+
+@app.route('/change/appearance',methods=['POST','GET'])
+def change_appearance():
+    if auth() == False:
+        return render_template('login.html')
+    theme = request.form.get("theme", type=str, default=None)
+    if theme != None:
+        config.set_config("appearance", "theme", theme)
+    return redirect('/settings')
