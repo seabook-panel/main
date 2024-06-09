@@ -15,3 +15,5 @@ def auth():
         pass
     if verify_password != password or verify_username != username:
         return False
+    else:
+        return True
