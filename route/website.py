@@ -3,6 +3,7 @@ import toml
 import os
 import shutil
 import subprocess
+import config
 
 def run_script(script_name):
     """定义一个函数来运行指定的Python脚本"""
@@ -11,12 +12,13 @@ def run_script(script_name):
 
 from auth import auth
 app = Blueprint('website', __name__)
+appearance = config.get_config("appearance")
 
 @app.route('/')
 def index():
     if auth() == False:
         return render_template('login.html')
-    return render_template('website/index.html',websites=toml.load('./website.toml'))
+    return render_template('website/index.html',websites=toml.load('./website.toml'),appearance=appearance)
 
 @app.route('/create',methods=['POST'])
 def create():

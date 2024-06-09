@@ -7,3 +7,6 @@ port = "8080"
 username = "admin"
 password = "123456"
 password_hash = "False"
+
+[appearance]
+theme = "default"

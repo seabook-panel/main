@@ -12,6 +12,8 @@ app.register_blueprint(settings.app, url_prefix='/settings')
 app.config['HOST'] = config.get_config("server", "host")
 app.config['PORT'] = config.get_config("server", "port")
 
+appearance = config.get_config("appearance")
+
 @app.route('/')
 def home():
     if auth() == False:
@@ -33,7 +35,7 @@ def home():
                 "logical": str(function.cpu_count_logical())
         }
     }
-    return render_template('index.html',info=info)
+    return render_template('index.html',info=info,appearance=appearance)
 
 @app.route('/power/<name>')
 def power(name):
@@ -52,7 +54,7 @@ def power(name):
             function.shutdown()
             print("IP地址为"+request.remote_addr+"的管理员关闭了服务器。")
             return response
-        return render_template('power/shutdown.html')
+        return render_template('power/shutdown.html',appearance=appearance)
 
 if __name__ == '__main__':
     mode = config.get_config("server", "mode")

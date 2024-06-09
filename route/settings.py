@@ -4,24 +4,25 @@ from auth import auth
 import config
 app = Blueprint('settings', __name__)
 
+appearance_settings = config.get_config('appearance')
 
 @app.route('/',methods=['GET'])
 def home():
     if auth() == False:
         return render_template('login.html')
-    return render_template('settings/index.html')
+    return render_template('settings/index.html',appearance=appearance_settings)
 
 @app.route('/appearance',methods=['GET'])
 def appearance():
     if auth() == False:
         return render_template('login.html')
-    return render_template('settings/appearance.html')
+    return render_template('settings/appearance.html',appearance=appearance_settings)
 
 @app.route('/security',methods=['GET'])
 def security():
     if auth() == False:
         return render_template('login.html')
-    return render_template('settings/security.html')
+    return render_template('settings/security.html',appearance=appearance_settings)
 
 @app.route('/change/user',methods=['POST','GET'])
 def change_user():

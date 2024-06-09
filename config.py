@@ -9,9 +9,13 @@ def set_config(group, key, value):
         toml.dump(config, f)
     return
 
-def get_config(group, key):
+def get_config(group, key=None):
     config = toml.load(path)
-    return config[group][key]
+    if key == None:
+        vaule = config[group]
+    else:
+        vaule = config[group][key]
+    return vaule
 
 def set_account_password(password):
     config = toml.load(path)

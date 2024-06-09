@@ -5,8 +5,8 @@
     <title>主页丨海书面板</title>
     <script src={{url_for('static', filename='resource/javascript/chart.js')}}></script>
     <link rel="icon" type="resource/image/png" href={{url_for('static', filename='resource/image/logo.png')}}>
-    <link rel="stylesheet" href={{url_for('static', filename='resource/style/head.css')}}>
-    <link rel="stylesheet" href={{url_for('static', filename='resource/style/card.css')}}>
+    <link rel="stylesheet" href="{{ url_for('static', filename='resource/style/' ~ appearance['theme'] ~ '/head.css') }}">
+    <link rel="stylesheet" href={{url_for('static', filename='resource/style/' ~ appearance['theme'] ~ '/card.css')}}>
 </head>
 <body>
     {% include 'sidebar.html' %}
