@@ -7,18 +7,29 @@
     <link rel="icon" type="resource/image/png" href={{url_for('static', filename='resource/image/logo.png')}}>
     <link rel="stylesheet" href={{url_for('static', filename='resource/style/' ~ appearance['theme'] ~ '/head.css')}}>
     <link rel="stylesheet" href={{url_for('static', filename='resource/style/' ~ appearance['theme'] ~ '/card.css')}}>
+    <style>
+    .card .card2 {
+        display: inline-block
+    }
+    </style>
 </head>
 <body>
     {% include 'sidebar.html' %}
     <nav>
-        <a href="#">插件</a>
+        <a href="./">应用</a>
+        <a href="./theme">主题</a>
     </nav>
     <div class="card">
-        <h2>插件</h2>
+        <h2>应用</h2>
         {% for item in plugin_list %}
-        <div class="card">
-            <h2>{{ item["name"] }}</h2>
-            版本：{{ item["version"] }}
+        <div class="card2">
+            <div class="card">
+                <h2>{{ item["name"] }}</h2>
+                简介：{{ item["description"] }}<br>
+                版本：{{ item["version"] }}<br>
+                网站：<a href="{{ item["website"] }}">{{ item["website"] }}</a><br>
+                <a href="./install/apps/{{ item['download'] }}">安装</a>
+            </div>
         </div>
         {% endfor %}
     </div>
