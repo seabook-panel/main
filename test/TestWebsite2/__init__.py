@@ -1,6 +1,4 @@
-import asyncio
-from flask import Flask, abort, render_template
-import os
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -17,5 +15,4 @@ def serve_html_pages(filename):
     return render_template(filename)
 
 if __name__ == '__main__':
-    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-    app.run()
+    app.run(debug=False, host='0.0.0.0',port=12345)

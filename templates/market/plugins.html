@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>商店丨海书面板</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" type="resource/image/png" href={{url_for('static', filename='resource/image/logo.png')}}>
+    <link rel="stylesheet" href={{url_for('static', filename='resource/style/' ~ appearance['theme'] ~ '/head.css')}}>
+    <link rel="stylesheet" href={{url_for('static', filename='resource/style/' ~ appearance['theme'] ~ '/card.css')}}>
+</head>
+<body>
+    {% include 'sidebar.html' %}
+    <nav>
+        <a href="#">插件</a>
+    </nav>
+    <div class="card">
+        <h2>插件</h2>
+        {% for item in plugin_list %}
+        <div class="card">
+            <h2>{{ item["name"] }}</h2>
+            版本：{{ item["version"] }}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

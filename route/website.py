@@ -2,13 +2,9 @@ from flask import Blueprint, render_template, request
 import toml
 import os
 import shutil
-import subprocess
+from multiprocessing import Process
 import config
 
-def run_script(script_name):
-    """定义一个函数来运行指定的Python脚本"""
-    process = subprocess.Popen("start cmd /k python "+script_name,shell=True)
-    return process.pid
 
 from auth import auth
 app = Blueprint('website', __name__)
@@ -86,7 +82,13 @@ def start(id):
         return render_template('login.html')
     website_config = toml.load("website.toml")
     if id in website_config:
-        output = run_script(website_config[id]["dir"]+"__init__.py")
+        with open(website_config[id]["dir"]+"run.bat", "w") as f:
+            run_code = """@echo off
+cd """+website_config[id]["dir"]+"""
+flask --app __init__ run"""
+            f.write(run_code)
+        output = Process(target=os.system,args=("powershell "+website_config[id]["dir"]+"run.bat",))
+        output.start()
         print(output)
 
     return "<h1>海书面板提醒您：已启动网站"+id+"</h1>"

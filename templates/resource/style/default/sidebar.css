@@ -1,4 +1,4 @@
-aside {
+.sidebar {
     position: fixed;
     top: 0;
     left: 0;
@@ -10,13 +10,13 @@ aside {
     border: 20px solid #E5EFFD;
 }
   /* logo 图片 */
-aside img {
+.sidebar img {
     margin-top:10px;
 margin-bottom:10px;
 margin-right:10px;
 margin-left:10px;
 }
-aside .card {
+.sidebar .card {
     border-style:solid;
     border-color:white;
     padding: 1rem;
@@ -29,26 +29,26 @@ aside .card {
     background-color: white;
 }
 
-aside .card:hover {
+.sidebar .card:hover {
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); /* 悬停时阴影更大 */
     transform: translateY(-2px) translateZ(1px); /* 微微上移，加强浮起感 */
     transition: all 0.3s ease; /* 平滑过渡效果 */
 }
 
-aside .card:active {
+.sidebar .card:active {
     transform: translateY(2px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.2);
     transition: all 0.1s ease-in-out;
 }
 
-aside .card a {
+.sidebar .card a {
     position: relative; /* 使h2成为定位上下文 */
     margin-left: 20px; /* 为竖条预留空间 */
     text-decoration: none;
     color: inherit;
 }
 
-aside .card a:before {
+.sidebar .card a:before {
     content: ""; /* 创建伪元素 */
     position: absolute; /* 使其相对于h2定位 */
     top: 50%; /* 使竖条居中 */

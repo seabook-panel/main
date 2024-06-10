@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>文件丨海书面板</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" type="resource/image/png" href={{url_for('static', filename='resource/image/logo.png')}}>
+    <link rel="stylesheet" href={{url_for('static', filename='resource/style/' ~ appearance['theme'] ~ '/head.css')}}>
+    <link rel="stylesheet" href={{url_for('static', filename='resource/style/' ~ appearance['theme'] ~ '/card.css')}}>
+</head>
+<body>
+    {% include 'sidebar.html' %}
+    <nav>
+        <a href="#">目录显示区</a>
+    </nav>
+    <div class="card">
+        <h2>前面的区域，以后再来探索吧！</h2>
+    </div>
+</body>
+</html>
