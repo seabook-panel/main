@@ -18,11 +18,15 @@ def path(dir):
     if auth() == False:
         return render_template('login.html')
     files = {
-        "folders": []
+        "folders": [],
+        "files": []
     }
-    for item in os.listdir(dir):
+    item_list = os.listdir(dir)
+    for item in item_list:
         full_path = os.path.join(dir, item)
         if os.path.isdir(full_path):
             files['folders'].append({'name': item})
+        if os.path.isfile(full_path):
+            files['files'].append({'name': item})
     print(files)
     return render_template('files/index.html', dir=dir, files=files, appearance=appearance)
