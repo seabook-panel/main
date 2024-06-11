@@ -7,14 +7,30 @@
     <link rel="icon" type="resource/image/png" href={{url_for('static', filename='resource/image/logo.png')}}>
     <link rel="stylesheet" href={{url_for('static', filename='resource/style/' ~ appearance['theme'] ~ '/head.css')}}>
     <link rel="stylesheet" href={{url_for('static', filename='resource/style/' ~ appearance['theme'] ~ '/card.css')}}>
+    <style>
+    .card2 a,.card2 a:link,.card2 a:visited,.card2 a:hover,.card2 a:active{
+        font-size: 20px;
+        text-decoration: none;
+        color:inherit;
+    }
+    </style>
 </head>
 <body>
     {% include 'sidebar.html' %}
     <nav>
-        <a href="#">目录显示区</a>
+        {{dir}}
+
     </nav>
     <div class="card">
-        <h2>前面的区域，以后再来探索吧！</h2>
+        <h2>文件</h2>
+        <div class="card2">
+            <div class="card">
+                <a href="../">../</a><br>
+                {% for folder in files["folders"] %}
+                    <a href="{{folder["name"]}}/">{{folder["name"]}}</a><br>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 </body>
 </html>

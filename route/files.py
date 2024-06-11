@@ -1,3 +1,4 @@
+import os
 from flask import Blueprint, render_template, redirect
 import config
 
@@ -12,8 +13,16 @@ def index():
         return render_template('login.html')
     return redirect('/files/'+config.get_config("server", "path"))
 
-@app.route('/<path:path>')
-def path(path):
+@app.route('/<path:dir>')
+def path(dir):
     if auth() == False:
         return render_template('login.html')
-    return render_template('files/index.html', path=path, appearance=appearance)
+    files = {
+        "folders": []
+    }
+    for item in os.listdir(dir):
+        full_path = os.path.join(dir, item)
+        if os.path.isdir(full_path):
+            files['folders'].append({'name': item})
+    print(files)
+    return render_template('files/index.html', dir=dir, files=files, appearance=appearance)
