@@ -27,6 +27,13 @@ def path(dir):
         if os.path.isdir(full_path):
             files['folders'].append({'name': item})
         if os.path.isfile(full_path):
-            files['files'].append({'name': item})
+            files['files'].append({'name': item,'path':full_path})
     print(files)
     return render_template('files/index.html', dir=dir, files=files, appearance=appearance)
+
+@app.route('/edit/<path:dir>')
+def edit(dir):
+    if auth() == False:
+        return render_template('login.html')
+    os.system("start "+dir)
+    return redirect('/files/')
