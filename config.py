@@ -14,7 +14,10 @@ def get_config(group, key=None):
     if key == None:
         vaule = config[group]
     else:
-        vaule = config[group][key]
+        try:
+            vaule = config[group][key]
+        except KeyError:
+            vaule = None
     return vaule
 
 def set_account_password(password):

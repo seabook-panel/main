@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, redirect
 import config
 
 
@@ -10,4 +10,10 @@ appearance = config.get_config("appearance")
 def index():
     if auth() == False:
         return render_template('login.html')
-    return render_template('files/index.html',appearance=appearance)
+    return redirect('/files/'+config.get_config("server", "path"))
+
+@app.route('/<path:path>')
+def path(path):
+    if auth() == False:
+        return render_template('login.html')
+    return render_template('files/index.html', path=path, appearance=appearance)
