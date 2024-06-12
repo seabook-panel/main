@@ -4,6 +4,7 @@ import config
 import requests
 import json
 import zipfile
+import shutil
 
 from auth import auth
 app = Blueprint('market', __name__)
@@ -56,9 +57,7 @@ def install_theme(url, name):
     target_name = name.decode('utf-8') if isinstance(name, bytes) else name
     target_path = os.path.join(save_path, target_name)
     if os.path.exists(target_path):
-        return render_template('error/index.html', 
-                               error="目标文件夹已存在，请先删除或使用其他名称。", 
-                               appearance=appearance)
+        shutil.rmtree(target_path)
     os.rename(os.path.join(save_path, folder_name), target_path)
     config.set_config("appearance", "theme", target_name)
     return "安装成功！"
