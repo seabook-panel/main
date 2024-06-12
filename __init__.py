@@ -33,8 +33,9 @@ def home():
         'cpu': {
             'used':str(function.cpu_percent()),
             'core_number':{
-                "core": str(function.cpu_count_core())},
+                "core": str(function.cpu_count_core()),
                 "logical": str(function.cpu_count_logical())
+            }
         }
     }
     return render_template('index.html',info=info,appearance=appearance)
