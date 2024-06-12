@@ -1,0 +1,26 @@
+.card {
+    border-style:solid;
+    border-color:#7B68EE;
+    padding: 1rem;
+    border-radius: 4px; /* 圆角 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.2); /* 添加外阴影和内阴影 */
+    margin-right:50px;
+    margin-top: 10px;
+}
+
+.card h2,h3 {
+    position: relative; /* 使h2成为定位上下文 */
+    margin-left: 20px; /* 为竖条预留空间 */
+}
+
+.card h2:before,h3:before{
+    content: ""; /* 创建伪元素 */
+    position: absolute; /* 使其相对于h2定位 */
+    top: 50%; /* 使竖条居中 */
+    left: -10px; /* 调整位置，这里假设竖条宽度为10px */
+    transform: translateY(-50%); /* 通过垂直居中调整 */
+    height: 100%; /* 竖条高度与h2相同 */
+    width: 2px; /* 调整竖条宽度 */
+    background-color: #7B68EE; /* 设置颜色 */
+}
+

@@ -1,0 +1,6 @@
+.close {
+    margin-left: auto;
+}
+body {
+    margin-left: 300px; /* 为头部留出侧边栏的空间 */
+}

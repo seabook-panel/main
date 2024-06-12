@@ -1,0 +1,60 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%; /* 高度 */
+    background-color: #E5EFFD; /* 背景色 */
+    transition: all 0.3s ease; /* 过渡效果 */
+    overflow-y: auto; /* 防止内容溢出 */
+    z-index: 999; /* 确保侧边栏位于顶部 */
+    border: 20px solid #E5EFFD;
+}
+  /* logo 图片 */
+.sidebar img {
+    margin-top:10px;
+margin-bottom:10px;
+margin-right:10px;
+margin-left:10px;
+}
+.sidebar .card {
+    border-style:solid;
+    border-color:white;
+    padding: 1rem;
+    border-radius: 4px; /* 圆角 */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* 增强阴影，模拟浮起效果 */
+    transform: translateZ(1px); /* 给予轻微的三维效果，帮助阴影展现 */
+    margin-right:50px;
+    margin-top: 10px;
+    margin-left: 10px;
+    background-color: white;
+}
+
+.sidebar .card:hover {
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); /* 悬停时阴影更大 */
+    transform: translateY(-2px) translateZ(1px); /* 微微上移，加强浮起感 */
+    transition: all 0.3s ease; /* 平滑过渡效果 */
+}
+
+.sidebar .card:active {
+    transform: translateY(2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+    transition: all 0.1s ease-in-out;
+}
+
+.sidebar .card a {
+    position: relative; /* 使h2成为定位上下文 */
+    margin-left: 20px; /* 为竖条预留空间 */
+    text-decoration: none;
+    color: inherit;
+}
+
+.sidebar .card a:before {
+    content: ""; /* 创建伪元素 */
+    position: absolute; /* 使其相对于h2定位 */
+    top: 50%; /* 使竖条居中 */
+    left: -10px; /* 调整位置，这里假设竖条宽度为10px */
+    transform: translateY(-50%); /* 通过垂直居中调整 */
+    height: 100%; /* 竖条高度与h2相同 */
+    width: 2px; /* 调整竖条宽度 */
+    background-color: #7B68EE; /* 设置颜色 */
+}

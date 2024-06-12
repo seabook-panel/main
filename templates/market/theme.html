@@ -18,6 +18,7 @@
     <nav>
         <a href="./">应用</a>
         <a href="./theme">主题</a>
+        <a>请注意：修改主题请输入识别ID。</a>
     </nav>
     <div class="card">
         <h2>主题</h2>
@@ -25,10 +26,11 @@
         <div class="card2">
             <div class="card">
                 <h2>{{ item["name"] }}</h2>
+                ID：{{ item["id"] }}<br>
                 简介：{{ item["description"] }}<br>
                 版本：{{ item["version"] }}<br>
                 网站：<a href="{{ item["website"] }}">{{ item["website"] }}</a><br>
-                <a href="./install/theme/{{ item['download'] }}">安装</a>
+                <a href="./install/theme/{{ item["id"] }}/{{ item['download'] }}">安装</a>
             </div>
         </div>
         {% endfor %}

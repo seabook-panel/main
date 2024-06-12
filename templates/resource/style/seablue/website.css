@@ -1,0 +1,53 @@
+/* 遮罩层样式 */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    /* 默认隐藏 */
+}
+
+/* 弹窗样式 */
+.create_form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: none;
+    /* 默认隐藏 */
+}
+
+label {
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #555;
+}
+
+select option {
+    color: #555;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table,
+table tr th,
+table tr td {
+    border: 1px solid #000000;
+}

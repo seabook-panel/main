@@ -36,21 +36,33 @@ def theme():
     theme_list = json.loads(response.text)
     return render_template('market/theme.html', theme_list = theme_list,appearance=appearance)
 
-@app.route('/install/theme/<url>')
-def install_theme(url):
+@app.route('/install/theme/<name>/<path:url>')
+def install_theme(url, name):
     if auth() == False:
         return render_template('login.html')
-    response = requests.get(url)
-    temp_path = install_path+"temp/theme.zip"
-    save_path = install_path+"templates/resource/style/", "wb"
+    try:
+        response = requests.get(url, timeout=100000)
+    except Exception as e:
+        return render_template('error/index.html', error="源出错。错误信息：<br>" + str(e), appearance=appearance)
+    temp_path = install_path + "temp/theme.zip"
+    save_path = install_path + "templates/resource/style/"
     with open(temp_path, "wb") as f:
-        f.write(response.text)
-        file=zipfile.ZipFile(temp_path)
-        file.extractall(save_path)
-        file.close()
+        f.write(response.content)
+    file = zipfile.ZipFile(temp_path)
+    file.extractall(save_path)
+    file.close()
+    folder_name = file.namelist()[0]
+    folder_name = folder_name.replace("/", "")
+    target_name = name.decode('utf-8') if isinstance(name, bytes) else name
+    target_path = os.path.join(save_path, target_name)
+    if os.path.exists(target_path):
+        return render_template('error/index.html', 
+                               error="目标文件夹已存在，请先删除或使用其他名称。", 
+                               appearance=appearance)
+    os.rename(os.path.join(save_path, folder_name), target_path)
+    config.set_config("appearance", "theme", target_name)
     return "安装成功！"
-
-@app.route('/install/plugin/<url>')
+@app.route('/install/plugin/<path:url>')
 def install_plugin(url):
     if auth() == False:
         return render_template('login.html')

@@ -1,0 +1,31 @@
+nav {
+    display: flex;
+    align-items: center;
+    border-style:solid;
+    border-color:#7B68EE;
+    padding: 1rem;
+    border-radius: 4px; /* 圆角 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.2); /* 添加外阴影和内阴影 */
+    margin-right:50px;
+  }
+
+  
+  /* 导航链接 */
+  nav a,button {
+    color: #333;
+    border-style:solid;
+    border-color:#7B68EE;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px; /* 圆角 */
+    transition: all 0.2s ease-in-out; /* 过渡效果 */
+    background-color: #fff; /* 白色背景，模拟内凹 */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* 内阴影 */
+    margin-right: 5px;
+  }
+  
+  nav a:hover,button:hover {
+    background-color: #e9ecef; /* 浅灰色，模拟鼠标悬停时的轻微凸起 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+  }
