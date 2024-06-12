@@ -1,5 +1,5 @@
 import os
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, redirect
 import config
 import requests
 import json
@@ -60,7 +60,8 @@ def install_theme(url, name):
         shutil.rmtree(target_path)
     os.rename(os.path.join(save_path, folder_name), target_path)
     config.set_config("appearance", "theme", target_name)
-    return "安装成功！"
+    return redirect("/")
+
 @app.route('/install/plugin/<path:url>')
 def install_plugin(url):
     if auth() == False:
