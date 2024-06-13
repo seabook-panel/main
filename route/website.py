@@ -11,12 +11,12 @@ app = Blueprint('website', __name__)
 appearance = config.get_config("appearance")
 
 @app.route('/')
+@auth
 def index():
-    if auth() == False:
-        return render_template('login.html')
     return render_template('website/index.html',websites=toml.load('./website.toml'),appearance=appearance)
 
 @app.route('/create',methods=['POST'])
+@auth
 def create():
     website_jinja2_code = R"""from flask import Flask, abort, render_template
 import os
@@ -37,8 +37,6 @@ def serve_html_pages(filename):
 
 if __name__ == '__main__':
     app.run(debug=True,port=)"""
-    if auth() == False:
-        return render_template('login.html')
     dir = request.form.get("dir", type=str, default=None)
     name = request.form.get("name", type=str, default=None)
     if dir[-1] != "/":
@@ -77,9 +75,8 @@ if __name__ == '__main__':
         return "<h1>海书面板提醒您：已创建网站，位于目录"+dir+"</h1>"
 
 @app.route('/start/<id>')
+@auth
 def start(id):
-    if auth() == False:
-        return render_template('login.html')
     website_config = toml.load("website.toml")
     if id in website_config:
         with open(website_config[id]["dir"]+"run.bat", "w") as f:
@@ -94,9 +91,8 @@ flask --app __init__ run"""
     return "<h1>海书面板提醒您：已启动网站"+id+"</h1>"
 
 @app.route('/delete/<id>')
+@auth
 def delete(id):
-    if auth() == False:
-        return render_template('login.html')
     website_config = toml.load("website.toml")
     if id in website_config:
         shutil.rmtree(website_config[id]["dir"])

@@ -7,27 +7,23 @@ app = Blueprint('settings', __name__)
 appearance_settings = config.get_config('appearance')
 
 @app.route('/',methods=['GET'])
+@auth
 def home():
-    if auth() == False:
-        return render_template('login.html')
     return render_template('settings/index.html',appearance=appearance_settings)
 
 @app.route('/appearance',methods=['GET'])
+@auth
 def appearance():
-    if auth() == False:
-        return render_template('login.html')
     return render_template('settings/appearance.html',appearance=appearance_settings)
 
 @app.route('/security',methods=['GET'])
+@auth
 def security():
-    if auth() == False:
-        return render_template('login.html')
     return render_template('settings/security.html',appearance=appearance_settings)
 
 @app.route('/change/user',methods=['POST','GET'])
+@auth
 def change_user():
-    if auth() == False:
-        return render_template('login.html')
     password = request.form.get("password", type=str, default=None)
     if password != None:
         password = hashlib.sha256(password.encode()).hexdigest()
@@ -35,9 +31,8 @@ def change_user():
     return redirect('/')
 
 @app.route('/change/panel',methods=['POST','GET'])
+@auth
 def change_panel():
-    if auth() == False:
-        return render_template('login.html')
     host = request.form.get("host", type=str, default=None)
     port = request.form.get("port", type=str, default=None)
     if port != None:
@@ -47,9 +42,8 @@ def change_panel():
     return redirect('/settings')
 
 @app.route('/change/appearance',methods=['POST','GET'])
+@auth
 def change_appearance():
-    if auth() == False:
-        return render_template('login.html')
     theme = request.form.get("theme", type=str, default=None)
     if theme != None:
         config.set_config("appearance", "theme", theme)

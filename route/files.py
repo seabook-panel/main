@@ -8,15 +8,13 @@ app = Blueprint('files', __name__)
 appearance = config.get_config("appearance")
 
 @app.route('/')
+@auth
 def index():
-    if auth() == False:
-        return render_template('login.html')
     return redirect('/files/'+config.get_config("server", "path"))
 
 @app.route('/<path:dir>')
+@auth
 def path(dir):
-    if auth() == False:
-        return render_template('login.html')
     files = {
         "folders": [],
         "files": []
@@ -32,8 +30,9 @@ def path(dir):
     return render_template('files/index.html', dir=dir, files=files, appearance=appearance)
 
 @app.route('/edit/<path:dir>')
-def edit(dir):
-    if auth() == False:
-        return render_template('login.html')
-    os.system("start "+dir)
-    return redirect('/files/')
+@auth
+def edit(dir: str):
+    with open(dir, "r") as f:
+        content = f.read()
+    edit_page = render_template('files/edit.html', dir=dir, content=content, appearance=appearance)
+    return edit_page

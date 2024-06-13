@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>文件丨海书面板</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" type="resource/image/png" href={{url_for('static', filename='resource/image/logo.png')}}>
+    <link rel="stylesheet" href={{url_for('static', filename='resource/style/' ~ appearance['theme'] ~ '/head.css')}}>
+    <link rel="stylesheet" href={{url_for('static', filename='resource/style/' ~ appearance['theme'] ~ '/card.css')}}>
+    <style>
+    .card2 a,.card2 a:link,.card2 a:visited,.card2 a:hover,.card2 a:active{
+        font-size: 20px;
+        text-decoration: none;
+        color:inherit;
+    }
+    </style>
+</head>
+<body>
+    {% include 'sidebar.html' %}
+    <nav>
+        {{dir}}
+    </nav>
+    <div class="card">
+        <h2>查看/编辑</h2>
+        <div class="card2">
+            <div class="card">
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

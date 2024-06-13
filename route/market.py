@@ -13,34 +13,31 @@ install_path = config.get_config("server", "path")
 registry = config.get_config("market", "registry")
 
 @app.route('/')
+@auth
 def apps():
-    if auth() == False:
-        return render_template('login.html')
     if config.get_config("market", "app_registry") == None:
         try:
             response = requests.get(registry+"apps.json")
         except requests.exceptions.ConnectTimeout:
-            return render_template('error/index.html', error = "源出错。错误信息：<br>"+response.text,appearance=appearance)
+            return render_template('error/index.html', error = "源出错。错误信息："+response.text,appearance=appearance)
     else:
         try:
             response = requests.get(config.get_config("market", "app_registry"))
         except requests.exceptions.ConnectTimeout:
-            return render_template('error/index.html', error = "源出错。错误信息：<br>"+response.text,appearance=appearance)
+            return render_template('error/index.html', error = "源出错。错误信息："+response.text,appearance=appearance)
     plugin_list = json.loads(response.text)
     return render_template('market/apps.html', plugin_list = plugin_list,appearance=appearance)
 
 @app.route('/theme')
+@auth
 def theme():
-    if auth() == False:
-        return render_template('login.html')
     response = requests.get(registry+"theme.json")
     theme_list = json.loads(response.text)
     return render_template('market/theme.html', theme_list = theme_list,appearance=appearance)
 
 @app.route('/install/theme/<name>/<path:url>')
+@auth
 def install_theme(url, name):
-    if auth() == False:
-        return render_template('login.html')
     try:
         response = requests.get(url, timeout=100000)
     except Exception as e:
@@ -63,9 +60,8 @@ def install_theme(url, name):
     return redirect("/")
 
 @app.route('/install/plugin/<path:url>')
+@auth
 def install_plugin(url):
-    if auth() == False:
-        return render_template('login.html')
     response = requests.get(url)
     temp_path = +"temp/plugin.py"
     with open(temp_path, "w") as f:

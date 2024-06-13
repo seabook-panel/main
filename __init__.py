@@ -17,9 +17,8 @@ app.config['PORT'] = config.get_config("server", "port")
 appearance = config.get_config("appearance")
 
 @app.route('/')
+@auth
 def home():
-    if auth() == False:
-        return render_template('login.html')
     hostname = str(platform.node())
     local_ip = str(function.local_ip())
     external_ip = str(function.external_ip())
@@ -41,9 +40,8 @@ def home():
     return render_template('index.html',info=info,appearance=appearance)
 
 @app.route('/power/<name>')
+@auth
 def power(name):
-    if auth() == False:
-        return render_template('login.html')
     if name == "reboot":
         @after_this_request
         def reboot(response):

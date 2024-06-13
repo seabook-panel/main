@@ -17,8 +17,6 @@ def login():
 
 @app.route('/logout')
 def logout():
-    if auth() == False:
-        return redirect('/')
     resp = make_response(redirect('/'))
     resp.delete_cookie("seabook_password")
     resp.delete_cookie("seabook_username")
