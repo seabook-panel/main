@@ -1,5 +1,5 @@
 import os
-from flask import Blueprint, render_template, redirect
+from flask import Blueprint, render_template, redirect, request
 import config
 
 
@@ -32,7 +32,18 @@ def path(dir):
 @app.route('/edit/<path:dir>')
 @auth
 def edit(dir: str):
-    with open(dir, "r") as f:
+    with open(dir, "r", encoding='utf-8') as f:
         content = f.read()
-    edit_page = render_template('files/edit.html', dir=dir, content=content, appearance=appearance)
+    edit_page = render_template('files/editor.html', dir=dir, content=content, appearance=appearance)
+    return edit_page
+
+@app.route('/edit_save/<path:dir>',methods=['POST'])
+@auth
+def edit_save(dir: str):
+    with open(dir, "w", encoding='utf-8') as f:
+        text = request.form['content']
+        f.write(text.replace("\n", ""))
+    with open(dir, "r", encoding='utf-8') as f:
+        content = f.read()
+    edit_page = render_template('files/editor.html', dir=dir, content=content, appearance=appearance)
     return edit_page
