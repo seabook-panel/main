@@ -60,7 +60,7 @@ def install_theme(url, name):
 @app.route('/install/plugin/<path:url>')
 @auth
 def install_plugin(url):
-    response = requests.get(url)
+    response = requests.get(url, verify=False)
     temp_path = install_path +"temp/plugin.py"
     with open(temp_path, "w") as f:
         f.write(response.text)
@@ -70,9 +70,9 @@ def install_plugin(url):
 @app.route('/install/apps/<path:url>')
 @auth
 def install_apps(url):
-    response = requests.get(url)
+    response = requests.get(url, verify=False)
     temp_path = install_path +"temp/apps.py"
-    with open(temp_path, "w") as f:
+    with open(temp_path, "w", encoding='utf-8') as f:
         f.write(response.text)
     os.system("python "+temp_path+" "+install_path)
     return "安装成功！"
