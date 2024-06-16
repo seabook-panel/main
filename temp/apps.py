@@ -13,11 +13,11 @@ def check_docker():
     except FileNotFoundError:
         return False
     
+
 if check_docker():
     print("Docker 已安装")
 else:
-    print("Docker 未安装，正在安装...")
-    subprocess.run(['pip', 'install', 'docker'])
+    print("Docker 未安装，请您自行安装。")
 
 subprocess.run("docker run -p 5140:5140 koishijs/koishi")
-print("Koishi 安装完成")
+print("Koishi 安装完成")
