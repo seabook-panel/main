@@ -14,35 +14,24 @@ registry = config.get_config("market", "registry")
 
 @app.route('/')
 @auth
-def apps():
-    if config.get_config("market", "app_registry") == None:
-        try:
-            response = requests.get(registry+"apps.json",verify=False)
-        except Exception as e:
-            return render_template('error/500.html', error = "源出错。错误信息："+str(e),appearance=appearance)
-    else:
-        try:
-            response = requests.get(config.get_config("market", "app_registry"),verify=False)
-        except Exception as e:
-            return render_template('error/500.html', error = "源出错。错误信息："+str(e),appearance=appearance)
-    plugin_list = json.loads(response.text)
-    return render_template('market/apps.html', plugin_list = plugin_list,appearance=appearance)
+def index():
+    return redirect("/market/apps")
 
-@app.route('/theme')
+@app.route('/<name>')
 @auth
-def theme():
-    if config.get_config("market", "app_registry") == None:
+def apps(name):
+    if config.get_config("market", name+"_registry") == None:
         try:
-            response = requests.get(registry+"theme.json",verify=False)
+            response = requests.get(registry+name+".json",verify=False)
         except Exception as e:
             return render_template('error/500.html', error = "源出错。错误信息："+str(e),appearance=appearance)
     else:
         try:
-            response = requests.get(config.get_config("market", "theme_registry"),verify=False)
+            response = requests.get(config.get_config("market", name+"_registry"),verify=False)
         except Exception as e:
             return render_template('error/500.html', error = "源出错。错误信息："+str(e),appearance=appearance)
-    theme_list = json.loads(response.text)
-    return render_template('market/theme.html', theme_list = theme_list,appearance=appearance)
+    content_list = json.loads(response.text)
+    return render_template('market/'+name+'.html', content_list = content_list,appearance=appearance)
 
 @app.route('/install/theme/<name>/<path:url>')
 @auth
@@ -72,7 +61,17 @@ def install_theme(url, name):
 @auth
 def install_plugin(url):
     response = requests.get(url)
-    temp_path = +"temp/plugin.py"
+    temp_path = install_path +"temp/plugin.py"
+    with open(temp_path, "w") as f:
+        f.write(response.text)
+    os.system("python "+temp_path+" "+install_path)
+    return "安装成功！"
+
+@app.route('/install/apps/<path:url>')
+@auth
+def install_apps(url):
+    response = requests.get(url)
+    temp_path = install_path +"temp/apps.py"
     with open(temp_path, "w") as f:
         f.write(response.text)
     os.system("python "+temp_path+" "+install_path)

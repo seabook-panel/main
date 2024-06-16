@@ -16,12 +16,13 @@
 <body>
     {% include 'sidebar.html' %}
     <nav>
-        <a href="./">应用</a>
+        <a href="./apps">应用</a>
         <a href="./theme">主题</a>
+        <a href="./plugin">插件</a>
     </nav>
     <div class="card">
         <h2>应用</h2>
-        {% for item in plugin_list %}
+        {% for item in content_list %}
         <div class="card2">
             <div class="card">
                 <h2>{{ item["name"] }}</h2>
