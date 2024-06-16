@@ -28,7 +28,7 @@ def change_user():
     if password != None:
         password = hashlib.sha256(password.encode()).hexdigest()
         config.set_account_password(password)
-    return redirect('/')
+    return redirect('/account/logout')
 
 @app.route('/change/panel',methods=['POST','GET'])
 @auth
