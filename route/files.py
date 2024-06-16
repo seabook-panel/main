@@ -46,7 +46,4 @@ def edit_save(dir: str):
     with open(dir, "w", encoding='utf-8') as f:
         text = request.form['content']
         f.write(text.replace("\n", ""))
-    with open(dir, "r", encoding='utf-8') as f:
-        content = f.read()
-    edit_page = render_template('files/editor.html', dir=dir, content=content, appearance=appearance)
-    return edit_page
+    return redirect("/files/edit/"+dir)
