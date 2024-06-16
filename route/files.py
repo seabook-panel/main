@@ -33,7 +33,10 @@ def path(dir):
 @auth
 def edit(dir: str):
     with open(dir, "r", encoding='utf-8') as f:
-        content = f.read()
+        try:
+            content = f.read()
+        except UnicodeDecodeError as e:
+            content = "暂时不能打开此文件。"
     edit_page = render_template('files/editor.html', dir=dir, content=content, appearance=appearance)
     return edit_page
 

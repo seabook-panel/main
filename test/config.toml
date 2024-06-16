@@ -1,16 +1,1 @@
-[server]
-host = "0.0.0.0"
-mode = "debug"
-port = "8080"
-path = "F:/Dev/OpenSource/xinghai-osc/seabook-panel/main/"
-
-[account]
-username = "admin"
-password = "123456"
-password_hash = "False"
-
-[appearance]
-theme = "seablue"
-
-[market]
-registry = "https://raw.githubusercontent.com/seabook-panel/market/main/registry/"
+[server]host = "0.0.0.0"mode = "debug"port = "8080"path = "F:/Dev/OpenSource/xinghai-osc/seabook-panel/main/"[account]username = "admin"password = "123456"password_hash = "False"[appearance]theme = "seablue"[market]registry = "https://seabook-panel.github.io/market/registry/"
