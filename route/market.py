@@ -19,12 +19,12 @@ def apps():
         try:
             response = requests.get(registry+"apps.json",verify=False)
         except Exception as e:
-            return render_template('error/index.html', error = "源出错。错误信息："+str(e),appearance=appearance)
+            return render_template('error/500.html', error = "源出错。错误信息："+str(e),appearance=appearance)
     else:
         try:
             response = requests.get(config.get_config("market", "app_registry"),verify=False)
         except Exception as e:
-            return render_template('error/index.html', error = "源出错。错误信息："+str(e),appearance=appearance)
+            return render_template('error/500.html', error = "源出错。错误信息："+str(e),appearance=appearance)
     plugin_list = json.loads(response.text)
     return render_template('market/apps.html', plugin_list = plugin_list,appearance=appearance)
 
@@ -35,12 +35,12 @@ def theme():
         try:
             response = requests.get(registry+"theme.json",verify=False)
         except Exception as e:
-            return render_template('error/index.html', error = "源出错。错误信息："+str(e),appearance=appearance)
+            return render_template('error/500.html', error = "源出错。错误信息："+str(e),appearance=appearance)
     else:
         try:
             response = requests.get(config.get_config("market", "theme_registry"),verify=False)
         except Exception as e:
-            return render_template('error/index.html', error = "源出错。错误信息："+str(e),appearance=appearance)
+            return render_template('error/500.html', error = "源出错。错误信息："+str(e),appearance=appearance)
     theme_list = json.loads(response.text)
     return render_template('market/theme.html', theme_list = theme_list,appearance=appearance)
 

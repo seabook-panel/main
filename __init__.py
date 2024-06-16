@@ -6,6 +6,7 @@ import function
 from route import website,account,settings,market,files
 
 app = Flask(__name__, static_folder="templates",static_url_path='')
+
 app.register_blueprint(website.app, url_prefix='/website')
 app.register_blueprint(account.app, url_prefix='/account')
 app.register_blueprint(settings.app, url_prefix='/settings')
@@ -56,6 +57,14 @@ def power(name):
             print("IP地址为"+request.remote_addr+"的管理员关闭了服务器。")
             return response
         return render_template('power/shutdown.html',appearance=appearance)
+
+@app.errorhandler(404)
+def error_404(e):
+    return render_template('error/404.html',error=e,appearance=appearance), 404
+
+@app.errorhandler(500)
+def error_500(e):
+    return render_template('error/500.html',error=e,appearance=appearance), 500
 
 if __name__ == '__main__':
     mode = config.get_config("server", "mode")

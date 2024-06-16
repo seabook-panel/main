@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>错误丨海书面板</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" type="resource/image/png" href={{url_for('static', filename='resource/image/logo.png')}}>
+    <link rel="stylesheet" href={{url_for('static', filename='resource/style/' ~ appearance['theme'] ~ '/head.css')}}>
+    <link rel="stylesheet" href={{url_for('static', filename='resource/style/' ~ appearance['theme'] ~ '/card.css')}}>
+</head>
+<body>
+    {% include 'sidebar.html' %}
+    <nav>
+        <a href="#">返回</a>
+    </nav>
+    <div class="card">
+        <h2>哎呀！出错了</h2>
+        <h3>错误码：404 - 页面/文件不存在</h3>
+        你要看的内容被陨石击中了，请及时前往<a href="https://github.com/seabook-panel/main/issues">这里</a>截图本页面报告。<br>
+        错误信息：<br>
+        {{error}}
+    </div>
+</body>
+</html>
