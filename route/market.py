@@ -17,12 +17,12 @@ registry = config.get_config("market", "registry")
 def apps():
     if config.get_config("market", "app_registry") == None:
         try:
-            response = requests.get(registry+"apps.json")
+            response = requests.get(registry+"apps.json",verify=False)
         except Exception as e:
             return render_template('error/index.html', error = "源出错。错误信息："+str(e),appearance=appearance)
     else:
         try:
-            response = requests.get(config.get_config("market", "app_registry"))
+            response = requests.get(config.get_config("market", "app_registry"),verify=False)
         except Exception as e:
             return render_template('error/index.html', error = "源出错。错误信息："+str(e),appearance=appearance)
     plugin_list = json.loads(response.text)
@@ -31,7 +31,16 @@ def apps():
 @app.route('/theme')
 @auth
 def theme():
-    response = requests.get(registry+"theme.json")
+    if config.get_config("market", "app_registry") == None:
+        try:
+            response = requests.get(registry+"theme.json",verify=False)
+        except Exception as e:
+            return render_template('error/index.html', error = "源出错。错误信息："+str(e),appearance=appearance)
+    else:
+        try:
+            response = requests.get(config.get_config("market", "theme_registry"),verify=False)
+        except Exception as e:
+            return render_template('error/index.html', error = "源出错。错误信息："+str(e),appearance=appearance)
     theme_list = json.loads(response.text)
     return render_template('market/theme.html', theme_list = theme_list,appearance=appearance)
 
