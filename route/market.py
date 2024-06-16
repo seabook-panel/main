@@ -18,13 +18,13 @@ def apps():
     if config.get_config("market", "app_registry") == None:
         try:
             response = requests.get(registry+"apps.json")
-        except requests.exceptions.ConnectTimeout:
-            return render_template('error/index.html', error = "源出错。错误信息："+response.text,appearance=appearance)
+        except Exception as e:
+            return render_template('error/index.html', error = "源出错。错误信息："+str(e),appearance=appearance)
     else:
         try:
             response = requests.get(config.get_config("market", "app_registry"))
-        except requests.exceptions.ConnectTimeout:
-            return render_template('error/index.html', error = "源出错。错误信息："+response.text,appearance=appearance)
+        except Exception as e:
+            return render_template('error/index.html', error = "源出错。错误信息："+str(e),appearance=appearance)
     plugin_list = json.loads(response.text)
     return render_template('market/apps.html', plugin_list = plugin_list,appearance=appearance)
 
