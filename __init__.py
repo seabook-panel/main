@@ -3,7 +3,7 @@ from auth import auth
 import config
 import platform
 import function
-from route import website,account,settings,market,files
+from route import website,account,settings,market,files,terminal
 
 app = Flask(__name__, static_folder="templates",static_url_path='')
 
@@ -12,6 +12,7 @@ app.register_blueprint(account.app, url_prefix='/account')
 app.register_blueprint(settings.app, url_prefix='/settings')
 app.register_blueprint(market.app, url_prefix='/market')
 app.register_blueprint(files.app, url_prefix='/files')
+app.register_blueprint(terminal.app, url_prefix='/terminal')
 app.config['HOST'] = config.get_config("server", "host")
 app.config['PORT'] = config.get_config("server", "port")
 
