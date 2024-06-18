@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>终端丨海书面板</title>
+    <link rel="icon" type="resource/image/png" href={{url_for('static', filename='resource/image/logo.png')}}>
+    <link rel="stylesheet" href={{url_for('static', filename='resource/style/' ~ appearance['theme'] ~ '/head.css')}}>
+    <link rel="stylesheet" href={{url_for('static', filename='resource/style/' ~ appearance['theme'] ~ '/card.css')}}>
+    <link rel="stylesheet" href={{url_for('static', filename='resource/style/' ~ appearance['theme'] ~ '/form.css')}}>
+    <style>
+        #output {
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    {% include 'sidebar.html' %}
+    <nav>
+        <button onclick="window.location.href='./'" id="">控制台</button>
+    </nav>
+
+<div class="card">
+    <h2>终端 - 控制台</h2>
+    <div id="output"></div>
+    <form id="commandForm" action="./run" method="post">
+        <label for="command">命令：</label>
+        <input type="text" id="command" name="command">
+        <button type="submit">执行</button>
+    </form>
+</div>
+</body>
+<script>
+    document.getElementById('commandForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const form = event.target;
+    const formData = new FormData(form);
+    
+    try {
+        // 使用Fetch API发送POST请求
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData
+        });
+        
+        if (!response.ok) {
+            throw new Error(`网络错误，状态码：${response.status}`);
+        }
+        
+        // 解析响应文本
+        const result = await response.text();
+        const existingOutput = document.getElementById('output').innerText;
+        document.getElementById('output').innerText = `${existingOutput}\n> ${formData.get('command')}\n ${result}`;
+    } catch (error) {
+        console.error('请求过程中发生错误:', error);
+        document.getElementById('output').innerText = `执行出错: ${error.message}`;
+    }
+});
+</script>
+</html>

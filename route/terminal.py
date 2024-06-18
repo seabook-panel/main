@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, render_template_string, request
+from flask import Blueprint, render_template, request
 import config
-import subprocess
+import os
 
 from auth import auth
 app = Blueprint('terminal', __name__)
@@ -9,12 +9,7 @@ appearance = config.get_config("appearance")
 @app.route('/')
 @auth
 def index():
-    htme_string = """
-<form action="./run" method="POST">
-<input type="text" name="command" placeholder="输入命令">
-<input type="submit" value="执行">
-"""
-    return render_template_string(htme_string)
+    return render_template("terminal/index.html",appearance=appearance)
 
 @app.route('/run',methods=['GET', 'POST'])
 @auth
@@ -25,5 +20,7 @@ def run():
     elif "sudo" in command:
         return "sudo命令禁止使用。"
     command = str(command)
-    output = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-    return output.stdout
+    output_lines = os.popen(command).readlines()
+    clean_output = [line.strip() for line in output_lines if line.strip()]
+    output = '\n'.join(clean_output)
+    return output
