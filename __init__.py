@@ -39,7 +39,7 @@ def home():
             }
         }
     }
-    return render_template('index.html',info=info,appearance=appearance)
+    return render_template('chrome/index.html',info=info,appearance=appearance)
 
 @app.route('/power/<name>')
 @auth
