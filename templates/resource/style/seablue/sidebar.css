@@ -42,6 +42,10 @@
     align-items: center;
 }
 
+.sidebar .card i {
+    margin-right: 5px; /* 图标与文本之间的间距 */
+}
+
 .sidebar .card:hover {
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
     /* 悬停时阴影更大 */
@@ -58,6 +62,8 @@
 }
 
 .sidebar .card a {
+    display: flex;
+    align-items: center; /* 使图标和文本垂直居中 */
     position: relative;
     /* 使h2成为定位上下文 */
     margin-left: 20px;
