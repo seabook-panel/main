@@ -19,6 +19,10 @@
     {% include 'chrome/sidebar.html' %}
     <nav>
         {{dir}}
+        <form action="/files/upload/{{dir}}" enctype='multipart/form-data' method="post">
+            <input type="file" name="file" multiple>
+            <input type="submit" value="上传">
+        </form>
     </nav>
     <div class="card">
         <h2>文件</h2>

@@ -1,6 +1,4 @@
 import os
-import select
-import sys
 from flask import Blueprint, render_template, redirect
 import config
 import requests

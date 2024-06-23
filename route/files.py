@@ -55,6 +55,14 @@ def path(dir):
 
     return render_template('files/index.html', dir=dir, files=files, appearance=appearance)
 
+@app.route('/upload/<path:dir>', methods=['POST'])
+@auth
+def upload(dir: str):
+    file = request.files['file']
+    dir_file=os.path.join(dir, file.filename)
+    file.save(dir_file)
+    return redirect("/files/"+dir)
+
 @app.route('/edit/<path:dir>')
 @auth
 def edit(dir: str):
