@@ -1,8 +1,9 @@
 from concurrent.futures import ThreadPoolExecutor
 import concurrent
+import io
 import os
 import psutil
-from flask import Blueprint, render_template, redirect, request
+from flask import Blueprint, render_template, redirect, request, send_file
 import config
 import platform
 
@@ -62,6 +63,11 @@ def upload(dir: str):
     dir_file=os.path.join(dir, file.filename)
     file.save(dir_file)
     return redirect("/files/"+dir)
+
+@app.route('/download/<path:dir>')
+@auth
+def downloads(dir: str):
+    return send_file(dir, as_attachment=True)
 
 @app.route('/edit/<path:dir>')
 @auth
