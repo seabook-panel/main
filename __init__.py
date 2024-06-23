@@ -3,10 +3,11 @@ from auth import auth
 import config
 import platform
 import function
-from route import website,account,settings,market,files,terminal
+from route import power,website,account,settings,market,files,terminal
 
 app = Flask(__name__, static_folder="templates",static_url_path='')
 
+app.register_blueprint(power.app, url_prefix='/power')
 app.register_blueprint(website.app, url_prefix='/website')
 app.register_blueprint(account.app, url_prefix='/account')
 app.register_blueprint(settings.app, url_prefix='/settings')
@@ -39,25 +40,7 @@ def home():
             }
         }
     }
-    return render_template('chrome/index.html',info=info,appearance=appearance)
-
-@app.route('/power/<name>')
-@auth
-def power(name):
-    if name == "reboot":
-        @after_this_request
-        def reboot(response):
-            function.reboot()
-            print("IP地址为"+request.remote_addr+"的管理员重启了服务器。")
-            return response
-        return render_template('power/reboot.html')
-    if name == "shutdown":
-        @after_this_request
-        def shutdown(response):
-            function.shutdown()
-            print("IP地址为"+request.remote_addr+"的管理员关闭了服务器。")
-            return response
-        return render_template('power/shutdown.html',appearance=appearance)
+    return render_template('home.html',info=info,appearance=appearance)
 
 @app.errorhandler(404)
 def error_404(e):
