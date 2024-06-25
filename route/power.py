@@ -1,6 +1,6 @@
 from flask import Blueprint, after_this_request, render_template, request
 import config
-import os
+import function
 
 from auth import auth
 app = Blueprint('power', __name__)
