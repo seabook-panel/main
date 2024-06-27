@@ -85,6 +85,8 @@ def edit(dir: str):
             content = f.read()
         except UnicodeDecodeError as e:
             content = "暂时不能打开此文件。"
+        except FileNotFoundError:
+            content = "文件不存在。"
     edit_page = render_template('files/editor.html', dir=dir, content=content, appearance=appearance)
     return edit_page
 
