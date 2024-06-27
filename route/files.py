@@ -101,7 +101,9 @@ def edit(dir: str):
 @app.route('/edit_save/<path:dir>',methods=['POST'])
 @auth
 def edit_save(dir: str):
+    text = request.form['content']
+    if text == "暂时不能打开此文件。":
+        return redirect("/files/edit/"+dir)
     with open(dir, "w", encoding='utf-8') as f:
-        text = request.form['content']
         f.write(text.replace("\n", ""))
     return redirect("/files/edit/"+dir)
