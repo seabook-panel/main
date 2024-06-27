@@ -62,6 +62,14 @@ def path(dir):
                 }
             ]
         }
+    except FileNotFoundError:
+        files = {
+            "folders": [
+                {
+                    "name": "目录不存在"
+                }
+            ]
+        }
     return render_template('files/index.html', dir=dir, files=files, appearance=appearance)
 
 @app.route('/upload/<path:dir>', methods=['POST'])
