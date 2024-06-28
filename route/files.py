@@ -6,6 +6,8 @@ from flask import Blueprint, render_template, redirect, request, send_file
 import config
 import platform
 
+osname = platform.system()
+
 from auth import auth
 app = Blueprint('files', __name__)
 appearance = config.get_config("appearance")
@@ -21,15 +23,15 @@ def index():
     files = {
         "folders": []
     }
-    if platform.system() == "Windows":
+    if osname == "Windows":
         for i in psutil.disk_partitions():
             name = i.device.replace("\\", "")
             files['folders'].append({'name': name})
-    elif platform.system() == "Linux":
+    elif osname == "Linux":
         item_list = os.listdir("/")
         for item in item_list:
             files['folders'].append({'name': item})
-    if platform.system() == "Windows":
+    if osname == "Windows":
         return render_template('files/root.html', dir="/", files=files, appearance=appearance)
     else:
         return render_template('files/index.html', dir="/", files=files, appearance=appearance)
@@ -37,7 +39,7 @@ def index():
 @app.route('/explorer/<path:dir>')
 @auth
 def explorer(dir):
-    if platform.system() == "Linux":
+    if osname == "Linux":
         dir = "/"+dir
     try:
         with ThreadPoolExecutor() as executor:
