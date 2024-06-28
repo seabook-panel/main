@@ -72,7 +72,7 @@ def upload(dir: str):
         file = request.files['file']
         dir_file=os.path.join(dir, file.filename)
         file.save(dir_file)
-        return redirect("/files/"+dir)
+        return redirect("/files/explorer/"+dir)
     except PermissionError:
         return render_template('error/500.html', error="您无权限在此目录上传文件。", appearance=appearance)
 
