@@ -11,13 +11,14 @@
 <body>
     {% include 'ui/sidebar.html' %}
     <nav>
-        <a href="#">返回</a>
+        <a href="../">返回</a>
     </nav>
     <div class="card">
         <h2>哎呀！出错了</h2>
         <h3>错误吗：500</h3>
        啊！你的服务器/面板出了点问题，请及时前往<a href="https://github.com/seabook-panel/main/issues">这里</a>截图本页面报告。
-        错误信息：
+        <br>
+       错误信息：
         {{error}}
     </div>
 </body>

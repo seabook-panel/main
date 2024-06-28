@@ -76,10 +76,13 @@ def path(dir):
 @app.route('/upload/<path:dir>', methods=['POST'])
 @auth
 def upload(dir: str):
-    file = request.files['file']
-    dir_file=os.path.join(dir, file.filename)
-    file.save(dir_file)
-    return redirect("/files/"+dir)
+    try:
+        file = request.files['file']
+        dir_file=os.path.join(dir, file.filename)
+        file.save(dir_file)
+        return redirect("/files/"+dir)
+    except PermissionError:
+        return render_template('error/500.html', error="您无权限在此目录上传文件。", appearance=appearance)
 
 @app.route('/download/<path:dir>')
 @auth
