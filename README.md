@@ -13,4 +13,4 @@
 ### 侧边栏
 [FontAwesome 图标库](https://fontawesome.com/) 提供图标
 ### 文件
-[Bootstrap 官方图标库](https://github.com/twbs/icons) ，[Font Awesome图标库](https://fontawesome.com/)提供图标
+[Bootstrap 官方图标库](https://github.com/twbs/icons) 提供图标
