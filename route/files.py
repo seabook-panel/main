@@ -58,21 +58,9 @@ def explorer(dir):
                 else:
                     files['files'].append({'name': item, 'path': full_path})
     except PermissionError:
-        files = {
-            "folders": [
-                {
-                    "name": "无权限"
-                }
-            ]
-        }
+        return render_template('error/500.html', error="您无权限在此目录查看文件。", appearance=appearance)
     except FileNotFoundError:
-        files = {
-            "folders": [
-                {
-                    "name": "目录不存在"
-                }
-            ]
-        }
+        return render_template('error/500.html', error="文件不存在。", appearance=appearance)
     return render_template('files/index.html', dir=dir, files=files, appearance=appearance)
 
 @app.route('/upload/<path:dir>', methods=['POST'])
