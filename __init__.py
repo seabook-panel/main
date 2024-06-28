@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,after_this_request
+from flask import Flask,render_template
 from auth import auth
 import config
 import platform
