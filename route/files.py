@@ -1,6 +1,5 @@
 from concurrent.futures import ThreadPoolExecutor
 import concurrent
-import io
 import os
 import psutil
 from flask import Blueprint, render_template, redirect, request, send_file
@@ -36,6 +35,8 @@ def index():
 @app.route('/<path:dir>')
 @auth
 def path(dir):
+    if platform.system() == "Linux":
+        dir = "/"+dir
     try:
         with ThreadPoolExecutor() as executor:
             futures = {
