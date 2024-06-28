@@ -1,4 +1,4 @@
 ﻿flask>=3.0.3
 toml>=0.10.2
 psutil>=5.9.0
-requests>=3.3.0
+requests>=2.31.0
