@@ -36,7 +36,9 @@ def index():
     
 @app.route('/explorer/<path:dir>')
 @auth
-def path(dir):
+def explorer(dir):
+    if platform.system() == "Linux":
+        dir = "/"+dir
     try:
         with ThreadPoolExecutor() as executor:
             futures = {
