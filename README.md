@@ -14,3 +14,5 @@
 [FontAwesome 图标库](https://fontawesome.com/) 提供图标
 ### 文件
 [Bootstrap 官方图标库](https://github.com/twbs/icons) 提供图标
+
+[![Star History](https://api.star-history.com/svg?repos=seabook-panel/main&type=Date)](https://star-history.com/#seabook-panel/main&Date)
