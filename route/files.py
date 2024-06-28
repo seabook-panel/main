@@ -12,10 +12,14 @@ appearance = config.get_config("appearance")
 
 @app.route('/')
 @auth
+def index_redirect():
+    return redirect("/files/explorer/")
+
+@app.route('/explorer/')
+@auth
 def index():
     files = {
-        "folders": [],
-        "files": []
+        "folders": []
     }
     if platform.system() == "Windows":
         for i in psutil.disk_partitions():
@@ -25,18 +29,15 @@ def index():
     elif platform.system() == "Linux":
         item_list = os.listdir("/")
         for item in item_list:
-            full_path = os.path.join("/", item)
-            if os.path.isdir(full_path):
-                files['folders'].append({'name': item})
-            if os.path.isfile(full_path):
-                files['files'].append({'name': item,'path':full_path})
-    return render_template('files/index.html', dir="/", files=files, appearance=appearance)
-
-@app.route('/<path:dir>')
+            files['folders'].append({'name': item})
+    if platform.system() == "Windows":
+        return render_template('files/root.html', dir="/", files=files, appearance=appearance)
+    else:
+        return render_template('files/index.html', dir="/", files=files, appearance=appearance)
+    
+@app.route('/explorer/<path:dir>')
 @auth
 def path(dir):
-    if platform.system() == "Linux":
-        dir = "/"+dir
     try:
         with ThreadPoolExecutor() as executor:
             futures = {
