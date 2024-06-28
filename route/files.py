@@ -25,7 +25,6 @@ def index():
         for i in psutil.disk_partitions():
             name = i.device.replace("\\", "")
             files['folders'].append({'name': name})
-            print(i.device,type(i.device))
     elif platform.system() == "Linux":
         item_list = os.listdir("/")
         for item in item_list:
