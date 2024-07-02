@@ -41,7 +41,7 @@ def install_theme(url, name):
     try:
         response = requests.get(url, timeout=100000)
     except Exception as e:
-        return render_template('error/index.html', error="源出错。错误信息：<br>" + str(e), appearance=appearance)
+        return render_template('error/500.html', error="源出错。错误信息：<br>" + str(e), appearance=appearance)
     temp_path = install_path + "temp/theme.zip"
     save_path = install_path + "templates/resource/style/"
     with open(temp_path, "wb") as f:

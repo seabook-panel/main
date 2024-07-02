@@ -5,21 +5,22 @@ import config
 app = Blueprint('settings', __name__)
 
 appearance_settings = config.get_config('appearance')
+settings_vaule = config.get_config()
 
 @app.route('/',methods=['GET'])
 @auth
 def home():
-    return render_template('settings/index.html',appearance=appearance_settings)
+    return render_template('settings/index.html',appearance=appearance_settings,setings=settings_vaule)
 
 @app.route('/appearance',methods=['GET'])
 @auth
 def appearance():
-    return render_template('settings/appearance.html',appearance=appearance_settings)
+    return render_template('settings/appearance.html',appearance=appearance_settings,setings=settings_vaule)
 
 @app.route('/security',methods=['GET'])
 @auth
 def security():
-    return render_template('settings/security.html',appearance=appearance_settings)
+    return render_template('settings/security.html',appearance=appearance_settings,setings=settings_vaule)
 
 @app.route('/change/user',methods=['POST','GET'])
 @auth

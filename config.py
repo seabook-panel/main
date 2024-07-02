@@ -9,9 +9,11 @@ def set_config(group, key, value):
         toml.dump(config, f)
     return
 
-def get_config(group, key=None):
+def get_config(group=None, key=None):
     config = toml.load(path)
-    if key == None:
+    if group == None:
+        vaule = config
+    elif key == None:
         vaule = config[group]
     else:
         try:

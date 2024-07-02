@@ -1,3 +1,4 @@
+import xhlog as log
 from flask import Flask,render_template
 from auth import auth
 import config
@@ -55,5 +56,5 @@ if __name__ == '__main__':
     if mode == "Debug" or mode == "debug":
         app.run(host=app.config['HOST'],port=app.config['PORT'],debug=True)
     else:
-        print("哎呀！出错啦！")
-        print("您未开启Debug模式，请使用WSGI运行。")
+        log.error("哎呀！出错啦！")
+        log.error("您未开启Debug模式，请使用WSGI运行。",exit=True)

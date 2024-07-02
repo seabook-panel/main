@@ -20,9 +20,9 @@
     <h2>基础</h2>
     <form action="./change/user" method="post">
         <label for="username">用户：</label>
-        <input type="text" id="username" name="username">
+        <input type="text" id="username" name="username" value="{{setings["account"]["username"]}}">
         <label for="password">密码：</label>
-        <input type="password" id="password" name="password">
+        <input type="password" id="password" name="password" value="{{setings["account"]["password"]}}">
         <button type="submit">保存</button>
     </form>
 </div>

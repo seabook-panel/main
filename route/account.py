@@ -1,6 +1,7 @@
 import hashlib
 from flask import Blueprint, request, make_response, redirect
 from auth import auth
+import xhlog as log
 app = Blueprint('account', __name__)
 
 
@@ -12,7 +13,7 @@ def login():
     password_hash = hashlib.sha256(password.encode()).hexdigest()
     resp.set_cookie("seabook_password", password_hash)
     resp.set_cookie("seabook_username", username)
-    print("IP地址为"+request.remote_addr+"的管理员登录了海书面板。")
+    log.info("IP地址为"+request.remote_addr+"的管理员登录了海书面板。")
     return resp
 
 @app.route('/logout')
@@ -20,5 +21,5 @@ def logout():
     resp = make_response(redirect('/'))
     resp.delete_cookie("seabook_password")
     resp.delete_cookie("seabook_username")
-    print("IP地址为"+request.remote_addr+"的管理员退出了海书面板。")
+    log.info("IP地址为"+request.remote_addr+"的管理员退出了海书面板。")
     return resp

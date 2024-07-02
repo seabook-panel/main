@@ -5,7 +5,6 @@ import shutil
 from multiprocessing import Process
 import config
 
-
 from auth import auth
 app = Blueprint('website', __name__)
 appearance = config.get_config("appearance")
@@ -18,7 +17,18 @@ def index():
 @app.route('/create',methods=['POST'])
 @auth
 def create():
-    website_jinja2_code = R"""from flask import Flask, abort, render_template
+    dir = request.form.get("dir", type=str, default=None)
+    name = request.form.get("name", type=str, default=None)
+    if dir[-1] != "/":
+        dir = dir+"/"
+    if "\\" in dir:
+        dir = dir.replace("\\", "/")
+    appdir=dir+name+"/"
+    if os.path.exists(appdir) == False:
+        os.mkdir(appdir)
+    site_type = request.form.get("type", type=str, default=None)
+    if site_type == "jinja2":
+        website_jinja2_code = R"""from flask import Flask, abort, render_template
 import os
 
 app = Flask(__name__)
@@ -37,17 +47,6 @@ def serve_html_pages(filename):
 
 if __name__ == '__main__':
     app.run(debug=True,port=)"""
-    dir = request.form.get("dir", type=str, default=None)
-    name = request.form.get("name", type=str, default=None)
-    if dir[-1] != "/":
-        dir = dir+"/"
-    if "\\" in dir:
-        dir = dir.replace("\\", "/")
-    appdir=dir+name+"/"
-    if os.path.exists(appdir) == False:
-        os.mkdir(appdir)
-    site_type = request.form.get("type", type=str, default=None)
-    if site_type == "jinja2":
         with open(appdir+"__init__.py", "w",encoding="utf-8") as f:
             jinja2_code = website_jinja2_code.replace("port=", "port="+request.form.get("port", type=str, default=None))
             f.write(jinja2_code)
